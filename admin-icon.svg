@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- ViralScript AI — admin-icon.svg (v9.3 prometido · criado na V9.5.5, comando 3)
+       Favicon + ícone do PAINEL PRIVADO do dono (painel-k7x9.html).
+       Engrenagem (identidade "área de operações") no gradiente accent do
+       projeto, sobre fundo full-bleed #05070f (theme-color do painel).
+       Conteúdo dentro da zona segura maskable (raio ~204 do centro):
+       o MESMO arquivo serve purpose "any" e "maskable". -->
+  <defs>
+    <linearGradient id="gradAdmin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6366f1" />
+      <stop offset="0.5" stop-color="#8b5cf6" />
+      <stop offset="1" stop-color="#d946ef" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="#05070f" />
+  <g fill="url(#gradAdmin)">
+    <rect x="228" y="56" width="56" height="80" rx="12" />
+    <rect x="228" y="56" width="56" height="80" rx="12" transform="rotate(45 256 256)" />
+    <rect x="228" y="56" width="56" height="80" rx="12" transform="rotate(90 256 256)" />
+    <rect x="228" y="56" width="56" height="80" rx="12" transform="rotate(135 256 256)" />
+    <rect x="228" y="56" width="56" height="80" rx="12" transform="rotate(180 256 256)" />
+    <rect x="228" y="56" width="56" height="80" rx="12" transform="rotate(225 256 256)" />
+    <rect x="228" y="56" width="56" height="80" rx="12" transform="rotate(270 256 256)" />
+    <rect x="228" y="56" width="56" height="80" rx="12" transform="rotate(315 256 256)" />
+    <circle cx="256" cy="256" r="130" />
+  </g>
+  <circle cx="256" cy="256" r="54" fill="#05070f" />
+</svg>
