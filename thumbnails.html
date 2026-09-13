@@ -1,0 +1,2142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ViralScript AI - Gerador de Prompts para Thumbnails, Avatares e Capas (Grátis)</title>
+  <meta name="description" content="Monte o prompt perfeito e gere thumbnails de YouTube, avatares e capas com a Meta AI (WhatsApp) ou o Gemini — 100% gratuito, sem chave e sem cadastro. Edite também a SUA foto mudando só o que quiser.">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#05070f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ViralScript">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/svg+xml" href="/robot.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- v8.7 — Google AdSense: script oficial no <head> de TODAS as páginas -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2359494647300339"
+       crossorigin="anonymous"></script>
+
+  <style>
+    /* v9.2 — CSS 100% INLINE (padrão do gerador, decisão v8.6).
+       Estética v8.6.1: todo texto centralizado + text-wrap:balance. */
+    :root {
+      --bg: #05070f;
+      --card-bg: rgba(15, 23, 42, 0.65);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --input-bg: rgba(10, 15, 29, 0.8);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+      --accent: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.4);
+      --success: #10b981;
+      --cafe: #f59e0b;
+    }
+
+    html, body { max-width: 100%; overflow-x: clip; }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; min-width: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      background-image:
+        radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(217, 70, 239, 0.08) 0%, transparent 40%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      margin: 0;
+      padding: 36px 20px;
+      line-height: 1.5;
+      min-height: 100vh;
+      min-height: 100dvh;
+      overscroll-behavior-y: none;
+      overflow-wrap: anywhere;
+      text-align: center;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; width: 100%; }
+
+    header {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; gap: 14px; margin-bottom: 24px; padding-bottom: 20px;
+      border-bottom: 1px solid var(--card-border); max-width: 100%;
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; max-width: 100%; }
+    .brand-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(160deg, #E8EDF5 0%, #D9DFE7 100%);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 20px var(--accent-glow), inset 0 -2px 6px rgba(43, 74, 112, 0.25);
+      flex-shrink: 0; overflow: hidden;
+    }
+    .brand-icon svg { width: 38px; height: 38px; display: block; }
+    .brand h1 {
+      margin: 0; font-size: 1.6rem; font-weight: 800;
+      letter-spacing: -0.5px; color: #ffffff; text-wrap: balance;
+    }
+    .brand h1 span {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .nav-topo { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
+    .nav-topo a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 0.85rem; font-weight: 600;
+      padding: 12px 16px; border-radius: 30px; transition: all 0.2s ease;
+    }
+    .nav-topo a:hover { color: #ffffff; background: rgba(99, 102, 241, 0.15); }
+    .nav-topo a.ativo { color: #ffffff; background: rgba(99, 102, 241, 0.22); }
+
+    .header-acoes { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
+
+    .btn-pill {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      color: var(--text-main); padding: 8px 16px; min-height: 44px;
+      border-radius: 30px; font-size: 0.82rem; font-weight: 600; cursor: pointer;
+      font-family: inherit; transition: all 0.25s ease; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
+      backdrop-filter: blur(10px); max-width: 100%;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .btn-pill:hover { border-color: var(--accent); color: #ffffff; }
+    .btn-pill.cafe { border-color: rgba(245, 158, 11, 0.4); color: #fbbf24; }
+    .btn-pill.cafe:hover { background: rgba(245, 158, 11, 0.12); border-color: var(--cafe); }
+
+    .ad-slot {
+      display: none; width: 100%; min-height: 90px; margin-bottom: 24px;
+      background: var(--input-bg); border: 1px dashed var(--card-border);
+      border-radius: 12px; overflow: hidden; align-items: center; justify-content: center;
+    }
+    .ad-slot.ativo { display: flex; }
+    .ad-slot.secundario { margin-bottom: 0; margin-top: 20px; min-height: 100px; }
+
+    .grid-generator {
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 28px; align-items: start;
+    }
+    @media (max-width: 900px) { .grid-generator { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--card-bg); backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 26px; border-radius: 16px; border: 1px solid var(--card-border);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); max-width: 100%;
+    }
+
+    .card-title {
+      margin-top: 0; margin-bottom: 20px; font-size: 1.08rem; font-weight: 700; color: #ffffff;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      border-bottom: 1px solid var(--card-border); padding-bottom: 14px;
+      text-align: center; text-wrap: balance;
+    }
+    .card-title svg { color: var(--accent); flex-shrink: 0; }
+
+    label:not(.radio-card) {
+      display: block; margin: 16px 0 6px; font-size: 0.85rem; font-weight: 600; color: #cbd5e1;
+      overflow-wrap: anywhere; text-align: center;
+    }
+    label:not(.radio-card):first-of-type { margin-top: 0; }
+
+    input[type="text"] {
+      width: 100%; padding: 14px 16px; border-radius: 10px;
+      border: 1px solid var(--card-border); background: var(--input-bg);
+      color: var(--text-main); font-size: 16px; font-family: inherit;
+      transition: all 0.25s ease; box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+      -webkit-appearance: none; appearance: none; text-align: center;
+    }
+    input[type="text"]:focus {
+      border-color: var(--accent); background: rgba(15, 23, 42, 0.95);
+      box-shadow: 0 0 0 4px var(--accent-glow), inset 0 2px 4px rgba(0, 0, 0, 0.2); outline: none;
+    }
+
+    .btn-pill:focus-visible, .btn-mini:focus-visible, .btn-copy:focus-visible,
+    .btn-enviar:focus-visible, .btn-foto:focus-visible, .modal-fechar:focus-visible,
+    .nav-topo a:focus-visible, input:focus-visible, .custom-select-trigger:focus-visible,
+    .chip:focus-visible, .btn-pix-copiar:focus-visible, .btn-cafe:focus-visible {
+      outline: 2px solid var(--accent); outline-offset: 2px;
+    }
+
+    .radio-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 10px; margin-top: 10px;
+    }
+    @media (max-width: 640px) {
+      .radio-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .radio-card {
+      position: relative; background: var(--input-bg);
+      border: 1px solid var(--card-border); border-radius: 12px;
+      padding: 10px 8px; min-height: 68px; margin: 0; cursor: pointer;
+      text-align: center; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 6px; user-select: none; max-width: 100%; overflow: hidden;
+    }
+    .radio-card:hover {
+      border-color: rgba(99, 102, 241, 0.5); transform: translateY(-2px);
+      background: rgba(99, 102, 241, 0.05);
+    }
+    .radio-card:has(input:checked) {
+      border-color: var(--accent);
+      background: linear-gradient(180deg, rgba(99, 102, 241, 0.18) 0%, rgba(99, 102, 241, 0.04) 100%);
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+    .radio-card input[type="radio"] { accent-color: var(--accent); margin: 0; cursor: pointer; width: 14px; height: 14px; }
+    .radio-card span {
+      font-size: 0.8rem; font-weight: 600; color: var(--text-main);
+      white-space: normal; overflow-wrap: anywhere; line-height: 1.2; text-align: center;
+    }
+
+    .formato-hint {
+      font-size: 0.66rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .modo-hint {
+      font-size: 0.66rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .contador-texto { margin-top: 6px; font-size: 0.72rem; color: var(--text-muted); }
+
+    .aviso-fluxo {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 12px; margin-bottom: 14px;
+      background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 8px; font-size: 0.78rem; color: #34d399; line-height: 1.45;
+      text-align: center;
+    }
+    .aviso-fluxo svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    .custom-select-wrapper { position: relative; user-select: none; width: 100%; z-index: 10; }
+    .custom-select-wrapper.open { z-index: 1000; }
+    .card:has(.custom-select-wrapper.open) { position: relative; z-index: 50; }
+
+    .custom-select-trigger {
+      width: 100%; padding: 14px 16px; border-radius: 10px;
+      border: 1px solid var(--card-border); background: var(--input-bg);
+      color: var(--text-main); font-size: 16px; font-family: inherit;
+      display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer; transition: all 0.25s ease;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    .custom-select-trigger span {
+      flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      margin-right: 10px; text-align: center;
+    }
+    .custom-select-trigger:hover { border-color: rgba(99, 102, 241, 0.5); background: rgba(15, 23, 42, 0.9); }
+    .custom-select-wrapper.open .custom-select-trigger {
+      border-color: var(--accent); background: rgba(15, 23, 42, 0.95);
+      box-shadow: 0 0 0 4px var(--accent-glow), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    .custom-select-trigger svg { transition: transform 0.3s ease; color: var(--text-muted); flex-shrink: 0; }
+    .custom-select-wrapper.open .custom-select-trigger svg { transform: rotate(180deg); color: var(--accent); }
+
+    .custom-options {
+      position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+      background: #0a0f1d; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(99, 102, 241, 0.4); border-radius: 12px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(99, 102, 241, 0.2);
+      max-height: 280px; overflow-y: auto; display: none; z-index: 9999;
+      animation: fadeInDropdown 0.25s cubic-bezier(0.16, 1, 0.3, 1); text-align: center;
+    }
+    .custom-options::-webkit-scrollbar { width: 6px; }
+    .custom-options::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.4); border-radius: 3px; }
+    @keyframes fadeInDropdown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .custom-select-wrapper.open .custom-options { display: block; }
+
+    .custom-option {
+      display: block; width: 100%;
+      padding: 13px 16px; font-size: 0.88rem; color: var(--text-main);
+      cursor: pointer; transition: all 0.2s ease;
+      border: none; border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      background: transparent; font-family: inherit; text-align: center;
+      overflow-wrap: anywhere;
+    }
+    .custom-option:last-child { border-bottom: none; }
+    .custom-option:hover, .custom-option:focus-visible { background: rgba(99, 102, 241, 0.15); color: #ffffff; }
+    .custom-option.selected { background: rgba(99, 102, 241, 0.22); color: #a5b4fc; font-weight: 600; }
+    .custom-option.selected::after { content: '✓'; color: var(--accent); font-weight: bold; }
+
+    .chips-caixa {
+      margin-top: 10px; border: 1px dashed var(--card-border); border-radius: 12px;
+      background: rgba(5, 7, 15, 0.35); padding: 12px; max-height: 240px; overflow-y: auto;
+    }
+    .chips-caixa::-webkit-scrollbar { width: 6px; }
+    .chips-caixa::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.4); border-radius: 3px; }
+    .chips-grade { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .chip {
+      background: var(--input-bg); border: 1px solid var(--card-border);
+      color: var(--text-main); border-radius: 30px; padding: 9px 14px;
+      min-height: 44px; font-size: 0.76rem; font-weight: 600; font-family: inherit;
+      cursor: pointer; transition: all 0.2s ease; overflow-wrap: anywhere; max-width: 100%;
+    }
+    .chip:hover { border-color: rgba(99, 102, 241, 0.5); }
+    .chip.selecionado {
+      border-color: var(--accent); color: #a5b4fc;
+      background: rgba(99, 102, 241, 0.16); box-shadow: 0 0 10px var(--accent-glow);
+    }
+    .chips-contador { margin-top: 8px; font-size: 0.72rem; color: var(--text-muted); }
+
+    .extras-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+    @media (max-width: 640px) { .extras-grid { grid-template-columns: 1fr; } }
+
+    /* v9.2 — zona de foto (modo Editar minha foto) */
+    .foto-zona {
+      margin-top: 8px; border: 2px dashed var(--card-border); border-radius: 12px;
+      padding: 18px 14px; background: rgba(5, 7, 15, 0.35);
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .foto-zona[hidden] { display: none; }
+    .foto-zona p { margin: 0; font-size: 0.78rem; color: var(--text-muted); }
+    .btn-foto {
+      background: rgba(99, 102, 241, 0.08); border: 1px dashed rgba(99, 102, 241, 0.45);
+      color: #a5b4fc; padding: 11px 16px; min-height: 44px; border-radius: 10px;
+      font-family: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer;
+      transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 8px;
+      max-width: 100%;
+    }
+    .btn-foto:hover { background: rgba(99, 102, 241, 0.16); border-color: var(--accent); color: #ffffff; }
+    .foto-preview { display: none; flex-direction: column; align-items: center; gap: 10px; width: 100%; }
+    .foto-preview.visivel { display: flex; }
+    .foto-preview img {
+      max-width: 220px; max-height: 160px; border-radius: 10px;
+      border: 1px solid var(--card-border); object-fit: contain;
+    }
+    .nota-privacidade-foto {
+      font-size: 0.7rem; color: #34d399; line-height: 1.5;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      overflow-wrap: anywhere;
+    }
+    .nota-privacidade-foto svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+    .btn-mini {
+      background: rgba(255, 255, 255, 0.06); border: 1px solid var(--card-border);
+      color: var(--text-main); padding: 8px 14px; border-radius: 6px;
+      font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+      font-family: inherit; min-height: 44px;
+    }
+    .btn-mini:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); }
+    .btn-mini.perigo:hover:not(:disabled) { background: #ef4444; border-color: #ef4444; }
+
+    .btn-generate {
+      position: relative; background: var(--accent-gradient); color: #ffffff;
+      border: none; padding: 18px 36px; border-radius: 12px; cursor: pointer;
+      font-weight: 700; font-size: 1.05rem; width: 100%; margin-top: 24px;
+      box-shadow: 0 8px 24px var(--accent-glow); transition: all 0.3s ease;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      overflow: hidden; letter-spacing: 0.3px; font-family: inherit;
+    }
+    .btn-generate::after {
+      content: ''; position: absolute; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+      transform: rotate(30deg); animation: shimmer 4s infinite;
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) rotate(30deg); }
+      20% { transform: translateX(100%) rotate(30deg); }
+      100% { transform: translateX(100%) rotate(30deg); }
+    }
+    .btn-generate:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(99, 102, 241, 0.5); }
+    .btn-generate:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .output-placeholder {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; min-height: 280px; color: var(--text-muted);
+      border: 2px dashed var(--card-border); border-radius: 12px; padding: 30px;
+    }
+    .output-placeholder svg { color: rgba(148, 163, 184, 0.4); margin-bottom: 16px; }
+
+    .output-content { display: none; flex-direction: column; gap: 20px; }
+
+    .result-section {
+      background: var(--input-bg); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: 16px; max-width: 100%; text-align: center;
+    }
+    .result-section h3 {
+      margin: 0 0 12px 0; font-size: 0.9rem; color: #a5b4fc;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      display: flex; justify-content: center; align-items: center; position: relative;
+      padding: 0 84px; gap: 8px; text-wrap: balance;
+    }
+    .result-section h3 .btn-copy {
+      position: absolute; right: 0; top: 50%; transform: translateY(-50%); margin: 0;
+    }
+
+    .btn-copy {
+      background: rgba(255, 255, 255, 0.06); border: 1px solid var(--card-border);
+      color: var(--text-main); padding: 8px 14px; min-height: 44px;
+      border-radius: 6px; font-size: 0.75rem; font-weight: 600; cursor: pointer;
+      transition: all 0.2s; font-family: inherit; flex-shrink: 0;
+    }
+    .btn-copy:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); }
+
+    .prompt-caixa {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      background: rgba(5, 7, 15, 0.6);
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      max-height: 320px;
+      overflow-y: auto;
+      overflow-wrap: anywhere;
+      text-align: left;
+      line-height: 1.6;
+    }
+    .prompt-caixa::-webkit-scrollbar { width: 6px; }
+    .prompt-caixa::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.4); border-radius: 3px; }
+    .prompt-contador { margin-top: 6px; font-size: 0.72rem; color: var(--text-muted); }
+
+    .thumb-acoes { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
+
+    /* v9.1 — botões de destino (IA escolhida pelo usuário) */
+    .btn-enviar {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 20px; min-height: 48px; border-radius: 12px;
+      font-family: inherit; font-size: 0.88rem; font-weight: 700;
+      cursor: pointer; transition: all 0.25s ease; text-decoration: none;
+      border: 1px solid var(--card-border); background: var(--input-bg);
+      color: var(--text-main); max-width: 100%;
+      overflow-wrap: anywhere;
+    }
+    .btn-enviar:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .btn-enviar.gemini { background: rgba(99, 102, 241, 0.12); }
+    .btn-enviar.gemini:hover { box-shadow: 0 6px 20px var(--accent-glow); }
+    .btn-enviar.whatsapp { background: rgba(37, 211, 102, 0.10); color: #4ade80; }
+    .btn-enviar.whatsapp:hover { border-color: #25d366; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.25); }
+    .btn-enviar svg { flex-shrink: 0; }
+
+    .instrucoes-ia {
+      margin-top: 16px; padding: 12px 14px;
+      background: rgba(99, 102, 241, 0.06);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: 10px;
+      font-size: 0.76rem; color: var(--text-muted); line-height: 1.6;
+      text-align: center;
+    }
+    .instrucoes-ia strong { color: #a5b4fc; }
+    .instrucoes-ia ol { margin: 8px 0 0 0; padding: 0; list-style: none; }
+    .instrucoes-ia li { margin: 3px 0; }
+
+    .aviso-revisao {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      margin-top: 12px; padding: 10px 12px;
+      background: rgba(245, 158, 11, 0.06); border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 8px; font-size: 0.75rem; color: #fbbf24; line-height: 1.45; text-align: center;
+    }
+    .aviso-revisao svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    .apoio-card {
+      display: none; background: rgba(245, 158, 11, 0.06);
+      border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px;
+      padding: 18px 20px; text-align: center; flex-direction: column;
+      align-items: center; justify-content: center; gap: 14px;
+    }
+    .apoio-card.visivel { display: flex; }
+    .apoio-card p { margin: 0; font-size: 0.9rem; color: var(--text-main); max-width: 420px; }
+
+    .btn-cafe {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #ffffff;
+      text-decoration: none; border: none; padding: 10px 22px; min-height: 44px;
+      border-radius: 10px; font-weight: 700; font-size: 0.88rem; white-space: nowrap;
+      transition: transform 0.2s; display: inline-flex; align-items: center;
+      justify-content: center; gap: 8px; cursor: pointer; font-family: inherit;
+    }
+    .btn-cafe:hover { transform: translateY(-2px); }
+
+    #pix-qr canvas {
+      display: block; margin: 0 auto; background: #ffffff; border-radius: 12px;
+      padding: 10px; max-width: 240px; width: 100%; height: auto !important;
+    }
+    .pix-info {
+      text-align: center; color: var(--text-muted); font-size: 0.9rem;
+      margin: 0 auto 16px auto; line-height: 1.55; max-width: 380px; overflow-wrap: anywhere;
+    }
+    .pix-info strong { color: #ffffff; }
+    .btn-pix-copiar {
+      background: var(--accent-gradient); color: #ffffff; border: none;
+      padding: 14px 24px; border-radius: 12px; cursor: pointer;
+      font-weight: 700; font-size: 0.95rem; width: 100%; margin-top: 16px;
+      box-shadow: 0 8px 24px var(--accent-glow); transition: all 0.3s ease;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      font-family: inherit; min-height: 44px;
+    }
+    .btn-pix-copiar:hover { transform: translateY(-2px); }
+
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(5, 7, 15, 0.85); backdrop-filter: blur(12px);
+      display: none; align-items: center; justify-content: center;
+      z-index: 2000; padding: 16px;
+    }
+    .modal-card {
+      position: relative; background: var(--card-bg);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      box-shadow: 0 20px 50px rgba(99, 102, 241, 0.2);
+      border-radius: 20px; padding: 32px 24px; max-width: 500px; width: 100%;
+      max-height: 90vh; overflow-y: auto; text-align: center;
+    }
+    .modal-card h2 {
+      margin-top: 0; font-size: 1.4rem;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      text-align: center; text-wrap: balance;
+    }
+    .modal-card h2 svg { width: 22px; height: 22px; color: #a5b4fc; flex-shrink: 0; }
+    .modal-card p { color: var(--text-muted); font-size: 0.92rem; margin: 0 0 16px 0; text-align: center; }
+    .modal-fechar {
+      position: absolute; top: 14px; right: 14px;
+      background: rgba(255, 255, 255, 0.06); border: 1px solid var(--card-border);
+      color: var(--text-muted); width: 44px; height: 44px; border-radius: 10px;
+      font-size: 1.2rem; cursor: pointer; line-height: 1; font-family: inherit;
+    }
+    .modal-fechar:hover { color: #ffffff; border-color: var(--accent); }
+
+    .spinner {
+      width: 40px; height: 40px; border: 3px solid rgba(99, 102, 241, 0.2);
+      border-top-color: var(--accent); border-radius: 50%;
+      animation: spin 0.8s linear infinite; margin: 0 auto 16px auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .alert-toast {
+      position: fixed; bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+      left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff;
+      padding: 14px 20px; border-radius: 12px; font-size: 0.88rem; font-weight: 700;
+      text-align: center; line-height: 1.45;
+      box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);
+      display: none; z-index: 3000;
+      animation: slideUp 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.15);
+      width: calc(100vw - 32px); max-width: 440px; overflow-wrap: anywhere;
+    }
+    .alert-toast.erro {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      box-shadow: 0 12px 30px rgba(239, 68, 68, 0.4);
+    }
+    @keyframes slideUp {
+      from { transform: translate(-50%, 30px); opacity: 0; }
+      to { transform: translate(-50%, 0); opacity: 1; }
+    }
+
+    footer {
+      margin-top: 40px; text-align: center; font-size: 0.8rem; color: var(--text-muted);
+      padding-top: 24px; padding-bottom: env(safe-area-inset-bottom, 0px);
+      border-top: 1px solid var(--card-border);
+    }
+    footer p { margin: 0 0 10px 0; text-align: center; }
+    footer a { color: #a5b4fc; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .nav-rodape { display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .nav-rodape a { color: #a5b4fc; text-decoration: none; }
+    .nav-rodape a:hover { text-decoration: underline; }
+
+    @view-transition { navigation: auto; }
+    #btn-instalar { display: none; }
+    #btn-instalar.visivel { display: inline-flex; }
+
+    @media (max-width: 640px) {
+      body { padding: 20px 12px; }
+      .btn-generate { padding: 16px 20px; font-size: 1rem; }
+      .card { padding: 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <header>
+      <a class="brand" href="/">
+        <div class="brand-icon">
+          <svg viewBox="0 0 512 512" aria-hidden="true">
+            <g stroke="#29A8E0" stroke-width="10" fill="none" opacity="0.55" stroke-linecap="round">
+              <path d="M256 60 L140 130"/>
+              <path d="M256 60 L372 130"/>
+              <path d="M140 130 L80 250"/>
+              <path d="M372 130 L432 250"/>
+              <path d="M80 250 L256 200"/>
+              <path d="M432 250 L256 200"/>
+            </g>
+            <g fill="#29A8E0">
+              <circle cx="256" cy="55" r="34"/>
+              <circle cx="140" cy="130" r="30"/>
+              <circle cx="372" cy="130" r="30"/>
+              <circle cx="80" cy="250" r="26"/>
+              <circle cx="432" cy="250" r="26"/>
+              <circle cx="256" cy="200" r="18"/>
+            </g>
+            <g stroke="#2B4A70" stroke-width="10">
+              <ellipse cx="135" cy="330" rx="48" ry="72" fill="#F2C470"/>
+              <ellipse cx="377" cy="330" rx="48" ry="72" fill="#F2C470"/>
+            </g>
+            <path d="M256 158
+                     C 185 158 140 205 138 290
+                     C 136 355 160 425 218 458
+                     C 242 470 270 470 294 458
+                     C 352 425 376 355 374 290
+                     C 372 205 327 158 256 158 Z"
+                  fill="#D9DFE7" stroke="#2B4A70" stroke-width="8"/>
+            <g stroke="#2B4A70" stroke-width="6">
+              <circle cx="214" cy="252" r="17" fill="#45D4F5"/>
+              <circle cx="298" cy="252" r="17" fill="#45D4F5"/>
+            </g>
+            <circle cx="214" cy="252" r="8" fill="#A5EBFF"/>
+            <circle cx="298" cy="252" r="8" fill="#A5EBFF"/>
+            <path d="M178 320
+                     C 176 296 194 284 224 282
+                     L 288 282
+                     C 318 284 336 296 334 320
+                     C 332 342 316 356 292 352
+                     C 276 348 268 344 256 344
+                     C 244 344 236 348 220 352
+                     C 196 356 180 342 178 320 Z"
+                  fill="#29ABE2" stroke="#2B4A70" stroke-width="8"/>
+            <path d="M210 378
+                     L 302 378
+                     C 318 378 326 394 318 408
+                     L 285 448
+                     C 274 458 238 458 227 448
+                     L 194 408
+                     C 186 394 194 378 210 378 Z"
+                  fill="#35B5E5" stroke="#2B4A70" stroke-width="8"/>
+            <path d="M238 396 L 284 420 L 238 444 Z"
+                  fill="none" stroke="#DFF6FF" stroke-width="9" stroke-linejoin="round" opacity="0.95"/>
+          </svg>
+        </div>
+        <h1>ViralScript <span>AI</span></h1>
+      </a>
+
+      <nav class="nav-topo">
+        <a href="/">Roteiros</a>
+        <a href="/thumbnails.html" class="ativo">Thumbnails</a>
+        <a href="/guia-roteiros-virais.html">Guia Viral</a>
+        <a href="/guia-chave-api-gratis.html">Chave Grátis</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/sobre.html">Sobre</a>
+      </nav>
+
+      <div class="header-acoes">
+        <!-- v9.1 — sem botão de chave: o gerador de prompt não usa IA
+             no servidor (montagem pura). A chave de IA só é usada no
+             gerador de ROTEIROS. -->
+        <button type="button" class="btn-pill" id="btn-instalar" title="Instalar o app no seu dispositivo">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span>Instalar App</span>
+        </button>
+        <button type="button" class="btn-pill cafe" id="btn-apoio-header" title="Apoie o projeto via Pix" style="display: none;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+          <span>Apoie o projeto</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="ad-slot" id="ad-topo">
+      <ins class="adsbygoogle" id="ad-ins-topo" style="display:block; width:100%;"
+           data-ad-format="horizontal" data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="grid-generator">
+
+      <div>
+        <div class="card">
+          <div class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+            Criar Meu Prompt de Imagem
+          </div>
+
+          <div class="aviso-fluxo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Montamos o PROMPT perfeito — você gera a imagem GRÁTIS na Meta AI (WhatsApp) ou no Gemini. Sem chave, sem cadastro.</span>
+          </div>
+
+          <form id="thumb-form">
+            <!-- v9.2 — MODO DE CRIAÇÃO: criar do zero | editar minha foto -->
+            <label id="modo-label">Modo de Criação:</label>
+            <div class="radio-grid" role="radiogroup" aria-labelledby="modo-label">
+              <label class="radio-card">
+                <input type="radio" name="modoCriacao" value="criar" checked>
+                <span>🎨 Criar do zero</span>
+                <span class="modo-hint">A IA cria a imagem a partir do prompt</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="modoCriacao" value="editar">
+                <span>🖼️ Editar minha foto</span>
+                <span class="modo-hint">Anexe SUA foto e mude só o que quiser</span>
+              </label>
+            </div>
+
+            <label id="formato-label">Formato da Imagem:</label>
+            <div class="radio-grid" role="radiogroup" aria-labelledby="formato-label">
+              <label class="radio-card">
+                <input type="radio" name="formatoThumb" value="thumb_youtube" checked>
+                <span>Thumb YouTube (16:9)</span>
+                <span class="formato-hint">1280×720 · thumbnail de vídeo</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="formatoThumb" value="avatar_redes">
+                <span>Avatar (1:1)</span>
+                <span class="formato-hint">1024×1024 · perfil de todas as redes</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="formatoThumb" value="capa_youtube">
+                <span>Capa YouTube (16:9)</span>
+                <span class="formato-hint">1280×720 · banner do canal</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="formatoThumb" value="capa_x">
+                <span>Capa X/Twitter (3:1)</span>
+                <span class="formato-hint">1470×630 · banner nativo</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="formatoThumb" value="capa_instagram">
+                <span>Capa Instagram (9:16)</span>
+                <span class="formato-hint">720×1280 · story/reels</span>
+              </label>
+            </div>
+
+            <label for="texto-thumb">Texto na Imagem (opcional):</label>
+            <input type="text" id="texto-thumb" maxlength="120" placeholder="Ex: AGORA RODA TUDO! · VIREI MILIONÁRIO? · SEU NOME AQUI">
+            <div class="contador-texto" id="contador-texto">0/120 caracteres — sem texto, o prompt pede a cena sem palavras.</div>
+
+            <div id="sel-expressao-container"><label>Expressão do Personagem:</label></div>
+            <div id="sel-posicao-container"><label>Posição do Personagem:</label></div>
+            <div id="sel-estilo-container"><label>Estilo do Texto:</label></div>
+            <div id="sel-cor-container"><label>Cor do Texto:</label></div>
+            <div id="sel-moldura-container"><label>Moldura dos Elementos:</label></div>
+            <div id="sel-cenario-container"><label>Cenário:</label></div>
+            <div id="sel-iluminacao-container"><label>Iluminação:</label></div>
+            <div id="sel-fundo-container"><label>Fundo:</label></div>
+
+            <label id="elementos-label">Elementos Flutuantes (até 6 — opcional):</label>
+            <div class="chips-caixa" id="elementos-caixa" role="group" aria-labelledby="elementos-label">
+              <div class="chips-grade" id="chips-elementos"></div>
+              <div class="chips-contador" id="chips-contador">Nenhuma selecionada — a cena nasce limpa, sem elementos.</div>
+            </div>
+
+            <label>Extras (opcionais):</label>
+            <div class="extras-grid">
+              <div id="sel-estilo-geral-container"></div>
+              <div id="sel-clickbait-container"></div>
+              <div id="sel-personagens-container"></div>
+              <div id="sel-clima-container"></div>
+            </div>
+
+            <!-- v9.2 — foto LOCAL: aparece só no modo Editar. A foto
+                 NUNCA é enviada a este site — é só um lembrete visual;
+                 você anexa a foto original na Meta AI/Gemini junto com
+                 o prompt. -->
+            <div id="campo-foto" hidden>
+              <label>Sua foto original (fica no seu aparelho):</label>
+              <div class="foto-zona">
+                <p>Selecione a foto que você vai editar — ela serve só de lembrete visual aqui. Na hora de gerar, você anexa a foto original <strong>junto com o prompt</strong> na Meta AI/Gemini. <span style="color:#34d399;">Sua foto nunca é enviada a este site.</span></p>
+                <button type="button" class="btn-foto" id="btn-escolher-foto">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                  Escolher foto
+                </button>
+                <input type="file" id="input-foto" accept="image/jpeg,image/png,image/webp" hidden>
+                <div class="foto-preview" id="foto-preview">
+                  <img id="foto-preview-img" alt="Prévia da foto que você vai editar">
+                  <button type="button" class="btn-mini perigo" id="btn-remover-foto">Remover foto</button>
+                </div>
+                <div class="nota-privacidade-foto">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  <span>Privacidade total: a foto fica só no seu aparelho.</span>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" id="btn-submit" class="btn-generate">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              Gerar Prompt (Grátis)
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          Seu Prompt
+        </div>
+
+        <div id="output-placeholder" class="output-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+          <p>Escolha o formato e as especificações ao lado e clique em "Gerar Prompt" — leve o prompt para a Meta AI (WhatsApp) ou o Gemini e tenha sua imagem de graça.</p>
+        </div>
+
+        <div id="output-loading" class="output-placeholder" style="display: none;">
+          <div class="spinner"></div>
+          <p id="loading-status-text" style="color: var(--text-main); font-weight: 600;">Montando seu prompt...</p>
+        </div>
+
+        <div id="output-content" class="output-content">
+          <div class="result-section">
+            <h3>
+              Seu Prompt
+              <button type="button" class="btn-copy" id="btn-copiar-prompt">Copiar</button>
+            </h3>
+            <div id="prompt-caixa" class="prompt-caixa"></div>
+            <div class="prompt-contador" id="prompt-contador"></div>
+
+            <div class="thumb-acoes">
+              <button type="button" class="btn-cafe" id="btn-copiar-grande">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                Copiar prompt
+              </button>
+              <button type="button" class="btn-mini" id="btn-compartilhar">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                Compartilhar
+              </button>
+              <button type="button" class="btn-mini" id="btn-variacao">Gerar variação</button>
+            </div>
+
+            <div class="thumb-acoes">
+              <button type="button" class="btn-enviar gemini" id="btn-abrir-gemini">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8L12 2z"></path></svg>
+                Abrir Gemini
+              </button>
+              <button type="button" class="btn-enviar whatsapp" id="btn-abrir-whatsapp">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                Abrir WhatsApp (Meta AI)
+              </button>
+            </div>
+
+            <div class="instrucoes-ia" id="instrucoes-ia">
+              <strong>Como usar seu prompt (3 passos):</strong>
+              <ol>
+                <li>1. Toque em <strong>Copiar prompt</strong></li>
+                <li>2. Abra a <strong>Meta AI no WhatsApp</strong> (abaixo) ou o <strong>Gemini</strong></li>
+                <li>3. Cole o prompt e envie — sua imagem sai de graça!</li>
+              </ol>
+            </div>
+
+            <div class="aviso-revisao">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              <span>A imagem gerada pela IA escolhida pode ter erros no texto ou mudar detalhes além do pedido — revise antes de publicar.</span>
+            </div>
+          </div>
+
+          <div class="apoio-card" id="apoio-card">
+            <p>Este app é <strong style="color:#34d399">100% gratuito</strong>. Se ele te ajudou, considere apoiar o projeto!</p>
+            <button type="button" class="btn-cafe" id="btn-apoio-card">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+              Apoie este projeto
+            </button>
+          </div>
+
+          <div class="ad-slot secundario" id="ad-resultado">
+            <ins class="adsbygoogle" id="ad-ins-resultado" style="display:block; width:100%;"
+                 data-ad-format="auto" data-full-width-responsive="true"></ins>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      <p>ViralScript AI — prompts de imagem e roteiros de graça · A chave de IA que você configura no gerador de ROTEIROS não é usada aqui.</p>
+      <nav class="nav-rodape">
+        <a href="/guia-roteiros-virais.html">Guias</a> ·
+        <a href="/faq.html">FAQ</a> ·
+        <a href="/politica-privacidade.html">Privacidade</a> ·
+        <a href="/termos-uso.html">Termos</a> ·
+        <a href="/contato.html">Contato</a>
+      </nav>
+    </footer>
+  </div>
+
+  <div id="pix-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="pix-titulo">
+    <div class="modal-card">
+      <button type="button" class="modal-fechar" id="btn-fechar-pix" aria-label="Fechar">×</button>
+      <h2 id="pix-titulo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+        Apoie o projeto via Pix
+      </h2>
+      <p class="pix-info">
+        Escaneie o QR Code com o app do seu banco<br>
+        — ou toque em <strong>"Copiar código Pix"</strong> e cole no app.
+        <br><strong>O valor é você quem escolhe.</strong> Qualquer quantia mantém o projeto no ar.
+      </p>
+      <div id="pix-qr" aria-label="QR Code Pix"></div>
+      <button type="button" class="btn-pix-copiar" id="btn-pix-copiar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        Copiar código Pix
+      </button>
+    </div>
+  </div>
+
+  <div id="toast" class="alert-toast" role="status" aria-live="polite">✓ Feito!</div>
+
+  <script src="config.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script>
+    // ============================================================
+    // ViralScript AI — thumbnails.html — v9.2
+    // GERADOR DE PROMPT DE IMAGEM: as escolhas vão ao worker
+    // (/api/gerar-prompt), a FÓRMULA fica secreta no servidor e a
+    // página recebe SÓ o prompt final pronto. O usuário leva o prompt
+    // (e, no modo Editar, a FOTO ORIGINAL da galeria dele) para a
+    // Meta AI (WhatsApp) ou o Gemini app — custo zero.
+    // v9.2 — MODO DE CRIAÇÃO: 🎨 Criar do zero | 🖼️ Editar minha foto
+    //   (foto LOCAL: preview de lembrete, NUNCA enviada a este site).
+    // NUNCA innerHTML dinâmico (textContent/createElement).
+    // ============================================================
+
+    const API_BASE = 'https://viralscriptai.tiodaweb03.workers.dev';
+
+    // v8.8.2 — FORMATOS: mapa formato → proporção + extra de composição
+    // (o extra do formato vai como 1º item dos "extras" — contrato do
+    // worker: ele usa o 1º item como "tipo" da composição).
+    const FORMATOS_THUMB = {
+      thumb_youtube: {
+        proporcao: '16:9',
+        extra: 'thumbnail de vídeo do YouTube, estilo clickbait de alta conversão'
+      },
+      avatar_redes: {
+        proporcao: '1:1',
+        extra: 'foto de perfil/avatar para redes sociais (Instagram, X/Twitter, TikTok, YouTube), enquadramento central no personagem, composição compacta que funciona em círculo'
+      },
+      capa_youtube: {
+        proporcao: '16:9',
+        extra: 'banner/capa de canal do YouTube, arte horizontal ampla com destaque central, estilo identidade visual de canal'
+      },
+      capa_x: {
+        proporcao: '21:9',
+        extra: 'banner/capa de perfil X/Twitter em proporção ultra-wide panorâmica (3:1), conteúdo essencial centralizado horizontalmente com margens generosas nas extremidades'
+      },
+      capa_instagram: {
+        proporcao: '9:16',
+        extra: 'capa vertical para Instagram (story/reels), composição vertical com foco no centro superior'
+      }
+    };
+
+    // v8.9 — dados dos seletores (listas v4.1 — todas geráveis por IA)
+    const DADOS_THUMB = {
+      expressao: [
+        'Chocado (boca aberta, mãos no rosto)',
+        'Apontando para o elemento',
+        'Sorriso enorme e exagerado',
+        'Assustado/preocupado',
+        'Comemorando (braços pra cima)',
+        'Olhar desconfiado/de canto',
+        'Piscada confiante',
+        'Rosto sério/impactante',
+        'Gritando de empolgação',
+        'Olhos arregalados (pupilas dilatadas)',
+        'Rindo alto (cabeça pra trás)',
+        'Pensativo (mão no queixo)',
+        'Apaixonado (olhos de coração)',
+        'Careta de nojo/repulsa',
+        'Confuso (coçando a cabeça)',
+        'Determinado (sobrancelha franzida)',
+        'Polegar para cima',
+        'Boquiaberto apontando para o texto',
+        'Cobrindo a boca de susto',
+        'Olhando para o celular espantado',
+        'Comemorando com dinheiro na mão',
+        'Chorando de rir',
+        'Explicando com as mãos (gesto de apresentador)',
+        'Silhueta misteriosa (rosto meio oculto)',
+        'Segurando a cabeça de desespero',
+        'Mordendo as unhas (nervoso)',
+        'Cara de quem ganhou na loteria',
+        'Cara de descrença (mãos abertas "sério?")',
+        'Sussurrando segredo (mão ao lado da boca)',
+        'Fazendo "shhh" (dedo na boca)',
+        'Sorrindo maliciosamente (sorriso de canto)',
+        'Oxigenando (máscara de oxigênio, muito impactado)',
+        'Congelado/estatuado de choque',
+        'Contando dinheiro de forma animada',
+        'Cruzando os braços confiante (postura de líder)',
+        'Rezando/implorando (mãos juntas)',
+        'Comemorando com taça/troféu erguido',
+        'Segurando placa/cartaz apontando pro texto',
+        'Espiado por cima de óculos escuros abaixados',
+        'Mordendo um punho fechado (raiva contida)',
+        'Segurando megafone gritando',
+        'Ofegante (respirando fundo, cansaço extremo)',
+        'Cara de poker (impassível, sem emoção)',
+        'Vitória de jabuti (comemoração irônica)',
+        'Cara de intimidação (encarando a câmera de cima)',
+        'Tirando a onda (encolhendo ombros)',
+        'Cara de sono/tédio (bocejando, relatable)',
+        'Mordendo um troféu/cinto de campeão',
+        'Fazendo binóculos com as mãos (espiando)',
+        'Segurando pote de remédio (desespero cômico)',
+        'Cara de "acabei de entender tudo" (iluminação mental)',
+        'Pose de super-herói pousando',
+        'Correndo em direção à câmera (fugindo de algo)',
+        'Cara de vítima (olhos de cachorro pidão)',
+        'Cara de quem viu um fantasma (pálido de susto)',
+        'Fazendo coração com as mãos',
+        'Bebendo café desesperadamente (madrugada)',
+        'Segurando relógio em pânico ("estou atrasado!")',
+        'Tapando a lente da câmera com a mão',
+        'De braços abertos ("VEM!")',
+        'Rindo com a mão na boca (fofoca)',
+        'Tirando selfie no momento do acontecido',
+        'Mostrando o celular pra câmera (prova)',
+        'Espantando com leque ("que vergonha")',
+        'Desmaiado no chão (dramático cômico)',
+        'Fingindo choro (lábio inferior pra frente)',
+        'Mordendo o lábio de ansiedade',
+        'Explosão de raiva (fumaça saindo da cabeça, cartoon)',
+        'Meditando zen (calma ABSURDA em meio ao caos)',
+        'Acordando assustado (sentando na cama)',
+        'Sobrancelha única erguida ("hmm?")',
+        'Apontando para baixo (olha a descrição!)',
+        'Fazendo gesto de telefone (dedo mindinho + polegar, "chama!")'
+      ],
+      posicao: [
+        'Esquerda', 'Direita', 'Centro', 'Centro-inferior',
+        'Canto superior', 'Canto inferior esquerdo', 'Canto inferior direito',
+        'Terço esquerdo (mais espaço pro texto)', 'Terço direito',
+        'Espiando pela borda da imagem', 'Atrás do texto (texto na frente)',
+        'Corpo inteiro', 'Meio corpo (busto)', 'Close-up no rosto',
+        'Segurando a borda da imagem (como se fosse um frame)',
+        'Saindo da tela (efeito 3D quebrando a moldura)',
+        'Espiando por cima de um elemento',
+        'De costas olhando pra trás (por cima do ombro)',
+        'Refletido no espelho',
+        'Dentro do celular/tela (saindo do dispositivo)',
+        'Duplo personagem (2 poses diferentes na mesma thumb)',
+        'Personagem pequeno no fundo + close no primeiro plano',
+        'Personagem segurando a própria versão miniatura',
+        'Espiando por buraco de fechadura (vinheta circular)',
+        'Pendurado na borda superior da imagem',
+        'Caindo dentro da imagem',
+        'Subindo na parte de dentro da imagem',
+        'Saindo do quadro pela lateral (metade cortada)',
+        'Personagem gigante dominando o fundo + elementos pequenos na frente',
+        'Rodapé/strip inferior com personagem em "bumper"',
+        'Personagem emoldurado em círculo à direita',
+        'Espiando atrás de moeda/baú/logotipo gigante',
+        'Inclinado entrando no quadro (peso do corpo pra dentro)',
+        'Espiando por cima do monitor/notebook',
+        'Espiando por cima do jornal/revista',
+        'Personagem em miniatura sentado em cima do texto',
+        'Personagem refletido no visor de óculos/capacete',
+        'Visto de cima (câmera aérea descendo)',
+        'Visto de baixo (torre sobre a câmera)',
+        'Atravessando um portal no centro da imagem',
+        'Evolução em 3 poses (antes/meio/depois na mesma thumb)'
+      ],
+      estiloTexto: [
+        '3D Block com contorno grosso',
+        'Gradiente metálico dourado',
+        'Neon glow',
+        'Quadrado amarelo/branco estilo MrBeast',
+        'Impact branco com borda preta (estilo clássico)',
+        'Cartoon arredondado colorido',
+        'Badge/retângulo de fundo atrás de cada palavra',
+        'Vazado (contorno sem preenchimento)',
+        'Sombra longa 3D projetada',
+        'Efeito de fogo nas letras',
+        'Efeito de gelo/cristal',
+        'Cromado espelhado',
+        'Estilo logo esportivo com estrela',
+        'Inclinado/dinâmico (leve rotação)',
+        'Explosão/impacto atrás das palavras',
+        'Palavra de destaque gigante (uma palavra maior que as demais)',
+        'Emoji integrado ao texto',
+        'Blocos voxel de madeira (estilo game de blocos)',
+        'Grafite/spray em parede',
+        'Estilo filme de cinema (letterbox + fonte serifada)',
+        'Glitch digital (letras "corrompidas" estilo hacker)',
+        'Estilo balão de HQ (comic book)',
+        'Letras cheias de brilhos/estrelas (Disney style)',
+        'Efeito líquido/derramado (derretendo)',
+        'Tatuagem/old school (fonte âncora vintage)',
+        'Estilo arcade retrô 8-bit',
+        'Dourado com textura de joia',
+        'Letras de luz neon de bar aberto',
+        'Estilo YouTube Kids (arredondado, cores de guloseima)',
+        'Tipografia manuscrita a pincel (brush)',
+        'Efeito alerta de emergência (faixa vermelha/branca)',
+        'Texto em serpentina/rolinho de cinema',
+        'Letras de chocolate/derretendo doce',
+        'Texto de ouro entrelaçado com diamantes',
+        'Estilo banknote/nota de dinheiro (relevo sépia)',
+        'Estilo logo de marca de luxo (serifada fina, espaçada)',
+        'Letras táticas militares (stencil)',
+        'Estilo futebol/campeonato (fonte de camisa com número)',
+        'Texto esculpido em pedra/mármore',
+        'Efeito raio elétrico atravessando as letras',
+        'Letras de gelo seco com fumaça saindo',
+        'Estilo vintage anos 80 (chrome + sunset synthwave)',
+        'Texto tapecário/croqui (traço de desenho à mão)',
+        'Palavra cruzada com seta vermelha de "VOCÊ"',
+        'Estilo logo de tecnologia (limpo, minimal, sans-serif)',
+        'Efeito buraco na parede (texto vazando luz por trás)',
+        'Letras com purpurina/glitter dourado',
+        'Painel de LED (pixels vermelhos de letreiro)',
+        'Estilo steampunk (bronze com engrenagens)',
+        'Texto de borracha de pneu (trail offroad)',
+        'Texto de placar de estádio (score eletrônico)',
+        'Estilo logo de banda de rock (cracked metal)',
+        'Texto costurado em tecido/jeans (pontos visíveis)',
+        'Texto comestível (biscoito, pizza, chocolate)',
+        'Texto de fita métrica/perfurado',
+        'Extrusão 3D profunda (letras com comprimento longo)',
+        'Texto preenchido com mini-imagens (collage fill)',
+        'Neon cyberpunk com suporte/aparador de luz'
+      ],
+      corTexto: [
+        'Amarelo → laranja', 'Branco', 'Verde neon', 'Ciano', 'Dourado',
+        'Vermelho', 'Roxo', 'Rosa → laranja', 'Verde dinheiro',
+        'Azul elétrico', 'Laranja vibrante', 'Magenta/pink', 'Turquesa',
+        'Prata metálica', 'Preto com contorno branco',
+        'Branco com contorno vermelho', 'Bicolor (metade A / metade B)',
+        'Gradiente arco-íris', 'Vermelho → preto',
+        'Azul → verde (gradiente frio)', 'Amarelo puro com sombra vermelha',
+        'Bronze metálico', 'Cobalto profundo', 'Coral vibrante',
+        'Verde limão elétrico', 'Champagne claro', 'Vinho/bordô elegante',
+        'Branco brilhante com glow azulado',
+        'Multicolorido (cada letra de uma cor)', 'Cromado azul-gelo',
+        'Ouro rosa (rose gold)', 'Verde menta',
+        'Vermelho neon de neon-sign', 'Azul royal com brilho elétrico',
+        'Laranja → rosa (gradiente sunset)', 'Verde esmeralda com brilho',
+        'Preto dourado (textura de luxo)', 'Amarelo taxi com faixa preta',
+        'Azul ciano holográfico (iridescente)',
+        'Branco com fogo verde (radioativo)',
+        'Roxo → azul (gradiente galáxia)', 'Vermelho sangue com gotas',
+        'Verde neon tóxico com gotejamento',
+        'Prata com reflexos azuis (metal frio)',
+        'Dourado envelhecido/bronze rústico',
+        'Azul marinho com traço dourado (elegante)',
+        'Camaleão (muda de cor por letra)',
+        'Magenta → ciano (vaporwave)', 'Laranja lava com núcleo branco',
+        'Ciano com núcleo branco (núcleo de laser)',
+        'Dourado com glow vermelho (fire gold)', 'Cinza aço escovado',
+        'Bege pergaminho vintage', 'Verde garrafa com borda dourada',
+        'Rosa chiclete com glitter', 'Azul celeste suave',
+        'Vermelho coral com sombra roxa'
+      ],
+      moldura: [
+        'Neon colorida', 'Vidro 3D (glassmorphism)', 'Metálica dourada',
+        'Quadrada com cantos arredondados', 'Pixel art 8-bit',
+        'Linha pontilhada tipo recorte', 'Sem moldura (elemento solto)',
+        'Borda dupla (branca + colorida)',
+        'Estilo card de colecionável (com brilho holográfico)',
+        'Estilo card de TCG genérico (raridade lendária)',
+        'Moldura de selo/postal', 'Circle badge (elemento dentro de círculo)',
+        'Estilo sticker de mensageiro (contorno branco grosso)',
+        'Moldura de moeda cunhada', 'Borda degradê (arco-íris)',
+        'Moldura de certificado elegante', 'Corte hexagonal',
+        'Estilo escudo/emblema',
+        'Moldura de placa de rua (metal com parafusos)',
+        'Moldura de tela de celular (notch e bordas)',
+        'Moldura de TV retrô CRT (curvada)', 'Borda de chama viva',
+        'Borda de gelo congelado',
+        'Moldura de corda/madeira rústica',
+        'Estilo moldura de museu (dourada clássica)',
+        'Moldura de holograma projetado (linhas de scan)',
+        'Borda de circuito energizado',
+        'Moldura de vitrine de joalheria',
+        'Estilo pop-art (pontos Ben-Day)',
+        'Moldura de nota fiscal/cupom (borda serrilhada)',
+        'Moldura de quadro de HQ (retângulo com borda de tinta)',
+        'Borda de neon quebrada (raios saindo)',
+        'Moldura de ticket de cinema perfurado',
+        'Borda de bilhete de loteria',
+        'Moldura de placa de veículo (license plate)',
+        'Cantoneiras metálicas com parafusos',
+        'Moldura de lente de câmera (anel de rosca)',
+        'Borda de fita adesiva cruzada nas quinas',
+        'Moldura de passaporte com carimbo',
+        'Estilo disco de vinil (círculos concêntricos)'
+      ],
+      cenario: [
+        'Setup gamer com RGB', 'Escritório moderno', 'Laboratório futurista tech',
+        'Fundo abstrato gradiente', 'Cidade noturna', 'Sala de estar aconchegante',
+        'Studio escuro profissional', 'Mundo de jogo/cartoon', 'Academia',
+        'Cozinha moderna', 'Carro esportivo (interior)', 'Rua urbana neon',
+        'Praia ao pôr do sol', 'Estádio de futebol',
+        'Data center com servidores', 'Portal dimensional', 'Espaço/galáxia',
+        'Floresta mágica', 'Castelo medieval', 'Sala de aula',
+        'Banco/agência financeira', 'Palco de show com luzes',
+        'Loja de tecnologia', 'Quintal de casa',
+        'Escritório home office com múltiplos monitores', 'Barbearia/salão',
+        'Hospital/clínica', 'Farmácia', 'Mercado/supermercado',
+        'Quarto de adolescente', 'Garagem com projetos', 'Aeroporto/salão vip',
+        'Iate/lancha de luxo', 'Mansão de piscina', 'Cassino de Las Vegas',
+        'Ringue de luta', 'Pista de corrida', 'Montanha nevada',
+        'Deserto com dunas', 'Vila japonesa neon (estilo Tóquio)',
+        'Times Square Nova York', 'Favela transformada (contexto BR)',
+        'Sala de reunião corporativa', 'Bunker secreto', 'Ilha paradisíaca',
+        'Céu com portão dourado', 'Inferno de fogo (dramático)',
+        'Fundo de "game show" com luzes giratórias',
+        'Cenário de entrevista/podcast com microfones',
+        'Sala do trono dourado', 'Nave espacial (cockpit)',
+        'Cidade cyberpunk com carros voadores',
+        'Mundo de blocos voxel (estilo game sandbox)',
+        'Arena de battle royale', 'Campo de futebol (gramado close)',
+        'Quadra de basquete', 'Pista de skate/parque',
+        'Sala de marketeiro com quadros brancos',
+        'War room (sala de controle com telas)', 'Cofre de banco aberto',
+        'Sala de servidores gigante', 'Estúdio de gravação acústico',
+        'Fábrica/indústria', 'Laboratório de ciências com tubos',
+        'Centro de convenções (evento tech)', 'Shopping center',
+        'Feira livre de bairro', 'Rodoviária/estação de trem',
+        'Elevador comercial', 'Estacionamento subterrâneo',
+        'Rooftop com skyline', 'Píer/deck sobre o mar', 'Trilha na floresta',
+        'Cachoeira', 'Caverna com cristais', 'Vulcão ativo',
+        'Círculo de pedras místico', 'Templo antigo', 'Pirâmide do Egito',
+        'Sala de aula de universidade', 'Biblioteca gótica antiga encantada',
+        'Cinema vazio', 'Brinquedoteca', 'Redação de jornal',
+        'Hangar de aviões', 'Estrada infinita no deserto', 'Ponte suspensa',
+        'Farol no penhasco', 'Cabana na neve', 'Base polar de pesquisa',
+        'Observatório astronômico', 'Circuito de F1 com arquibancada',
+        'Estádio olímpico com tocha', 'Dojo de artes marciais',
+        'Quadra de vôlei na praia', 'Campo de golfe',
+        'Arena de e-sports com plateia', 'Lan house nostálgica',
+        'Metrô/trem em movimento', 'Rodovia à noite (longa estrada)',
+        'Posto de gasolina retrô', 'Drive-in de cinema', 'Ateliê de artista',
+        'Estúdio de tatuagem', 'Padaria', 'Pizzaria napolitana',
+        'Churrascaria brasileira', 'Rua de food trucks', 'Boteco de bar com TV'
+      ],
+      iluminacao: [
+        'Neon azul e rosa', 'Dourada explosiva', 'Fria tech (azul/ciano)',
+        'Quente amber', 'Roxa vibrante', 'Dramática com contraste alto',
+        'Luz natural de janela', 'Estúdio 3 pontos (profissional)',
+        'Contraluz forte (contorno brilhante)', 'Luz de monitor no rosto',
+        'Luz de fogo/lareira', 'Piscante colorida (balada/festa)',
+        'Raio de sol dramático', 'Luz policial (vermelho/azul)',
+        'Holofotes de palco', 'Luz verde de hacker/terminal',
+        'Luz de vagão de trem/sótão', 'Aurora boreal colorida',
+        'Luz de solda/fagulhas elétricas', 'Flash de câmera direto no rosto',
+        'Golden hour quente lateral', 'Luz de abajur clássica (noite)',
+        'Lampiões/tochas medievais', 'Luz de fogos de artifício',
+        'Strobe branco de show', 'Luz subaquática azulada',
+        'Refletores de estádio noturno', 'Luz de TV antiga piscando',
+        'Raios de tempestade', 'Glow de portal mágico (roxo/verde)',
+        'Luz de vela (íntima/dramática)', 'Spotlight único no escuro total',
+        'Luz de laser show (multi-feixes)',
+        'Ring light circular nos olhos (beauty)',
+        'Luz de celular no rosto no escuro', 'Fosforescência/UV blacklight',
+        'Luz de forja/fagulhas quentes', 'Brilho lunar frio prateado',
+        'Luz de farol de carro (contrapicado)',
+        'Luz natalina colorida (pisca-pisca)',
+        'Glow de telas múltiplas (azul + roxo)',
+        'Luz de hospital (branca clínica)', 'Luz de supermercado (branca fria)',
+        'Sol de meio-dia duro (sombras marcadas)',
+        'Luz difusa de dia nublado', 'Luz de fliperama (máquinas piscando)',
+        'Glow de joalheria (spotlight em diamante)',
+        'Luz de igreja por vitral colorido',
+        'Luz de geladeira de madrugada (meme)',
+        'Clareira com god rays (raios de floresta)',
+        'Glow de magma subterrâneo', 'Palco com fumaça (hazer)',
+        'Luz de circo (multi-colorida)',
+        'Split lighting (metade quente/metade fria no rosto)',
+        'Laser vermelho de segurança (grade de lasers)',
+        'Night vision verde (câmera de segurança)',
+        'Luz de bola de cristal (orbe brilhante)',
+        'Fogueira com faíscas voando', 'Luz de aquário azulada'
+      ],
+      fundo: [
+        'Escuro desfocado com bokeh', 'Azul matrix com código',
+        'Laranja fogo', 'Roxo escuro', 'Preto com vinheta', 'Branco clean',
+        'Gradiente colorido', 'Verde chroma key (editar depois)',
+        'Azul marinho profundo', 'Vermelho dramático', 'Dourado elegante',
+        'Cinza degradê', 'Cosmos/galáxia', 'Tijolos industriais',
+        'Madeira rústica', 'Circuito eletrônico', 'Vidro fosco',
+        'Papel rasgado/colagem', 'Céu com nuvens', 'Ondas sonoras/podcast',
+        'Grade 3D infinita (synthwave)', 'Colagem de notas de dinheiro',
+        'Fundo de fardos de dinheiro real', 'Textura de asfalto/rua',
+        'Papel milimetrado/quadriculado',
+        'Leque de cartas de baralho espalhadas', 'Fendas/lava de vulcão',
+        'Céu estrelado com estrela cadente', 'Bandeira do Brasil desfocada',
+        'Multidão de estádio desfocada',
+        'Parede de holerites/documentos (finanças)',
+        'Águia/emblema gigante ao fundo', 'Mapa-múndi digital',
+        'Estátuas/colunas gregas', 'Deserto de sal espelhado',
+        'Campo de trigo dourado', 'Chuva torrencial na janela',
+        'Vitrine de loja iluminada', 'Parede de placas-mãe e peças de PC',
+        'Fundo de "breaking news" (TV broadcast)',
+        'Tela de livestream com chat (fake)',
+        'Dashboard de analytics com gráficos',
+        'Blueprint técnico (desenho de engenharia)',
+        'Fundo de notas adesivas (brainstorm)',
+        'Parede de neon-signs diversos', 'Nebulosa colorida (Hubble)',
+        'Fundo de vidro quebrado/fissurado',
+        'Explosão congelada no tempo', 'Fumaça colorida (color smoke bomb)',
+        'Confete e serpentina (festa)', 'Fundo de folha de caderno pautado',
+        'Mapa de RPG antigo (pergaminho)',
+        'Fundo de "portais" múltiplos brilhando',
+        'Degradê duotone (2 cores chapadas)', 'Fundo de hexágonos tech',
+        'Linhas de perspectiva (túnel)', 'Fundo de selos/postais vintage',
+        'Parede de códigos QR', 'Textura de couro (luxo)',
+        'Campo de futebol visto de cima',
+        'Colinas verdes ensolaradas (nostálgico anos 2000)',
+        'Tela azul de erro (BSOD)', 'Embalagem de produto desfocada',
+        'Fundo de gráfico de candlestick (crypto)',
+        'Tela de terminal verde (código rodando)',
+        'Fundo de tabuleiro de jogo de banco (board game)',
+        'Dominós caindo em cadeia', 'Bokeh dourado de festas',
+        'Velas acesas em série', 'Floresta de bambu desfocada',
+        'Palco com cortina vermelha de teatro',
+        'Nuvem de partículas de dados (IA)', 'Wireframe 3D de malha',
+        'HUD de game (interface de FPS)', 'Mapa de rota com pinos',
+        'Painel de aeroporto (chegadas/partidas)',
+        'Bolhas de sabão flutuando', 'Balões de festa coloridos'
+      ],
+      elementos: [
+        'Setas vermelhas subindo', 'Moedas/dólares', 'Gráficos de crescimento',
+        'Ícones de apps/logos', 'Partículas e faíscas', 'Baús e itens de jogo',
+        'Timers/cronômetro', 'Produtos', 'Coroas/troféus', 'Corações/inscritos',
+        'Números ("5x", "10x")', 'Alertas de aviso', 'Setas vermelhas caindo',
+        'Cifrões ($)', 'Bitcoin/criptomoedas', 'Diamantes e gemas',
+        'Celulares flutuantes', 'Notebooks e PCs', 'Caixas de presente',
+        'Fichas de cassino', 'Medalhas', 'Cofrinho/porquinho',
+        'Cartão de crédito', 'Relógio de ouro', 'Relâmpagos',
+        'Explosões e fumaça', 'Balões de fala',
+        'Botões genéricos de like (polegar) e sino de notificação',
+        'Botão de play gigante atrás do personagem',
+        'Plaquinhas ("GRÁTIS", "NOVO", "URGENTE")', 'Mascotes fofos',
+        'Foguete subindo', 'Estrelas brilhantes', 'Pilha de dinheiro',
+        'Cofre aberto', 'Gráfico de queda (vermelho)', 'Itens de comida/bebida',
+        'Notas de dinheiro voando (chuva de dinheiro)',
+        'Cadeado aberto/fechado (segurança)', 'Escudo de proteção',
+        'Balão de RTP/porcentagem ("98%")', 'Carro esportivo miniatura',
+        'Casa/imóvel miniatura', 'Avião/mala de viagem',
+        'Livro aberto brilhante', 'Certificado/diploma', 'Camisa de time/jersey',
+        'Bola de futebol', 'Controle de videogame', 'Headset/fone gamer',
+        'Placa de vídeo/GPU', 'Interface de app flutuante (mockup de celular)',
+        'Lupa de busca', 'Alvo/mira (target)', 'Cadeia de blocos blockchain',
+        'Robôs fofos/mini robôs', 'Ovo surpresa', 'Roda da sorte/giro',
+        'Insetos/bug vermelho (tech)', 'Fogos de artifício',
+        'Coroa de louros (vitória)', 'Sino de notificação', 'Ampulheta',
+        'Termômetro subindo', 'Bananas/emoji cachorro (memes)',
+        'Cobras/caveiras (aviso de golpe)', 'Cinto de campeão de luta',
+        'Bola de basquete', 'Raquete e bola de tênis', 'Halteres e anilhas',
+        'Garfo/faca/chef hat', 'Panela com fogo/panela de pressão',
+        'Cupom de desconto rasgado', 'Etiqueta de preço riscada ("de/por")',
+        'Carrinho de compras', 'Sacola de marketplace',
+        'Pickup de jogo (arma/espada/poção)', 'Coração partido (relacionamento)',
+        'Aliança/anéis (casamento)', 'Chupeta/urso (maternidade)',
+        'Micróbios/células (saúde)', 'Remédios/caixa de comprimidos',
+        'DNA/hélice genética', 'Planeta Saturno/astronomia',
+        'Órbe de cristal brilhante', 'Bandeira quadriculada (corrida)',
+        'Apito de árbitro', 'Troféu dourado', 'Microfone de podcast',
+        'Caixa de som com ondas sonoras', 'Câmera de cinema vintage',
+        'Claquete de set', 'Ícone de "ao vivo" (live)',
+        'Contador de inscritos ("1M subs")', 'Porta aberta com luz saindo',
+        'Chave dourada', 'Mapa do tesouro com X', 'Bússola',
+        'Lâmpada de ideia acesa', 'Engrenagens',
+        'Fluxograma/setas de processo', 'Tela de "loading"',
+        'Cadeado de "bloqueado" com progresso 99%',
+        'Fardos de dinheiro empilhados', 'Moedas de ouro caindo do céu',
+        'Cofre com senha girando', 'Calculadora', 'Planilha de dados flutuante',
+        'Cursor de mouse gigante clicando', 'Botão vermelho "NÃO CLIQUE"',
+        'Alavanca de turbo puxada', 'Chama de nitro/escapamento',
+        'Calendário com X no dia', 'Selo dourado de garantia',
+        'Selo "100% GRÁTIS"', 'Selo "ATUALIZADO 2025"',
+        '5 estrelas de avaliação', 'Gráfico de pizza', 'Ícone de WiFi cheio',
+        'Bateria carregando 100%', 'Avião de papel voando',
+        'Chuva de confete dourado', 'Trevo de 4 folhas (sorte)',
+        'Ferradura/pé de coelho', 'Esfera de cristal de energia',
+        'Poção mágica borbulhando', 'Espada lendária cravada no chão',
+        'Escudo medieval', 'Elmo de cavaleiro', 'Carta de tarot virada',
+        'Dado de RPG gigante (d20)', 'Controle retrô de cartucho',
+        'Fita cassete/DJ vinil', 'Microfone vintage de rádio',
+        'Disquete nostálgico', 'Cartucho de videogame', 'TV de tubo retrô',
+        'Celular tijolão indestrutível', 'Skate/BMX', 'Prancha de surf',
+        'Dardo no centro do alvo', 'Sino de boxe',
+        'Faixa preta (artes marciais)', 'Tênis de corrida',
+        'Garrafa de whey/proteína', 'Balança de peso', 'Trena de medição',
+        'Abacate/salada bowl', 'Café expresso fumegando', 'Suco detox',
+        'Bolo confeitado', 'Hambúrguer gigante', 'Pipoca estourando'
+      ]
+    };
+
+    const EXTRAS_THUMB = {
+      estiloGeral: ['Realista', 'Cartoon 3D estilo Pixar', 'Ilustração digital', 'Semi-realista'],
+      clickbait: ['Nível de clickbait leve', 'Nível de clickbait médio', 'Nível de clickbait extremo (MrBeast mode)'],
+      personagens: ['1 personagem', '2 personagens (reação em dupla)', '3 ou mais personagens (plateia/multidão)'],
+      clima: ['Cena clara (dia)', 'Cena chuvosa', 'Cena nevando', 'Tempestade', 'Céu nublado']
+    };
+
+    // v8.9 — "Automático (IA decide)" por extra: frase injetada no
+    // compositor de extras (o valor 'auto' nunca vai literal).
+    const AUTO_EXTRA = {
+      estiloGeral: 'estilo visual a critério da IA',
+      clickbait: 'nível de impacto a critério da IA',
+      personagens: 'número de personagens a critério da IA',
+      clima: 'clima a critério da IA'
+    };
+
+    const MAX_ELEMENTOS = 6;
+
+    const ConfigService = {
+      config: window.VIRAL_CONFIG || { pixChave: '', pixNome: '', pixCidade: '' },
+      getConfig() { return this.config; }
+    };
+
+    const PixService = {
+      _campo(id, valor) {
+        const tamanho = String(valor.length).padStart(2, '0');
+        return id + tamanho + valor;
+      },
+      _crc16(payload) {
+        let crc = 0xFFFF;
+        for (let i = 0; i < payload.length; i++) {
+          crc ^= payload.charCodeAt(i) << 8;
+          for (let j = 0; j < 8; j++) {
+            crc = (crc & 0x8000) ? ((crc << 1) ^ 0x1021) : (crc << 1);
+            crc &= 0xFFFF;
+          }
+        }
+        return crc.toString(16).toUpperCase().padStart(4, '0');
+      },
+      _sanitizar(texto, max) {
+        return texto
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .replace(/[^\x20-\x7E]/g, '')
+          .toUpperCase()
+          .slice(0, max);
+      },
+      gerarPayload(chave, nome, cidade) {
+        const gui = this._campo('00', 'br.gov.bcb.pix');
+        const chaveCampo = this._campo('01', chave);
+        const merchantAccount = this._campo('26', gui + chaveCampo);
+        const nomeLimpo = this._sanitizar(nome, 25);
+        const cidadeLimpa = this._sanitizar(cidade, 15);
+        let payload =
+          this._campo('00', '01') +
+          merchantAccount +
+          this._campo('52', '0000') +
+          this._campo('53', '986') +
+          this._campo('58', 'BR') +
+          this._campo('59', nomeLimpo) +
+          this._campo('60', cidadeLimpa) +
+          this._campo('62', this._campo('05', '***')) +
+          '6304';
+        return payload + this._crc16(payload);
+      }
+    };
+
+    // v8.9 — fábrica de seletores dropdown:
+    // 1ª opção = "Nenhum" (valor '' — o worker OMITIRÁ o campo)
+    // 2ª opção = "Automático (IA decide)" (valor 'auto' — o worker
+    //   injetará a frase padrão de qualidade da fórmula)
+    function svgChevron() {
+      const NS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('width', '16');
+      svg.setAttribute('height', '16');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('stroke', 'currentColor');
+      svg.setAttribute('stroke-width', '2');
+      svg.setAttribute('stroke-linecap', 'round');
+      svg.setAttribute('stroke-linejoin', 'round');
+      svg.setAttribute('aria-hidden', 'true');
+      const poly = document.createElementNS(NS, 'polyline');
+      poly.setAttribute('points', '6 9 12 15 18 9');
+      svg.appendChild(poly);
+      return svg;
+    }
+
+    function criarSeletor(idContainer, opcoes) {
+      const container = document.getElementById(idContainer);
+      if (!container) return null;
+
+      const lista = [
+        { rotulo: 'Nenhum', valor: '' },
+        { rotulo: 'Automático (IA decide)', valor: 'auto' }
+      ].concat(opcoes.map(o => ({ rotulo: o, valor: o })));
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'custom-select-wrapper';
+
+      const trigger = document.createElement('div');
+      trigger.className = 'custom-select-trigger';
+      trigger.tabIndex = 0;
+      trigger.setAttribute('role', 'button');
+      trigger.setAttribute('aria-haspopup', 'listbox');
+      trigger.setAttribute('aria-expanded', 'false');
+
+      const spanTexto = document.createElement('span');
+      spanTexto.textContent = lista[0].rotulo;
+      trigger.appendChild(spanTexto);
+      trigger.appendChild(svgChevron());
+
+      const optionsBox = document.createElement('div');
+      optionsBox.className = 'custom-options';
+      optionsBox.setAttribute('role', 'listbox');
+
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.value = '';
+
+      const botoes = lista.map((op, i) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'custom-option' + (i === 0 ? ' selected' : '');
+        btn.setAttribute('role', 'option');
+        btn.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+        btn.textContent = op.rotulo;
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          input.value = op.valor;
+          spanTexto.textContent = op.rotulo;
+          botoes.forEach((b, idx) => {
+            b.classList.toggle('selected', idx === i);
+            b.setAttribute('aria-selected', idx === i ? 'true' : 'false');
+          });
+          fechar();
+        });
+        optionsBox.appendChild(btn);
+        return btn;
+      });
+
+      function abrir() {
+        wrapper.classList.add('open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+      function fechar() {
+        wrapper.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+      function alternar() {
+        wrapper.classList.contains('open') ? fechar() : abrir();
+      }
+
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        alternar();
+      });
+      trigger.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          alternar();
+        } else if (e.key === 'Escape') {
+          fechar();
+        }
+      });
+      document.addEventListener('click', () => fechar());
+
+      wrapper.appendChild(trigger);
+      wrapper.appendChild(optionsBox);
+      wrapper.appendChild(input);
+      container.appendChild(wrapper);
+
+      return { obter: () => input.value };
+    }
+
+    // v8.8/v8.9 — chips multi-select (Elementos Flutuantes).
+    function criarChips(opcoes, max) {
+      const grade = document.getElementById('chips-elementos');
+      const contador = document.getElementById('chips-contador');
+      const selecionadas = new Set();
+
+      function atualizarContador() {
+        if (!selecionadas.size) {
+          contador.textContent = 'Nenhuma selecionada — a cena nasce limpa, sem elementos.';
+        } else {
+          contador.textContent = selecionadas.size + ' de ' + max + ' selecionadas.';
+        }
+      }
+
+      opcoes.forEach(rotulo => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'chip';
+        chip.setAttribute('aria-pressed', 'false');
+        chip.textContent = rotulo;
+        chip.addEventListener('click', () => {
+          if (selecionadas.has(rotulo)) {
+            selecionadas.delete(rotulo);
+            chip.classList.remove('selecionado');
+            chip.setAttribute('aria-pressed', 'false');
+          } else {
+            if (selecionadas.size >= max) {
+              UI.mostrarToast('Máximo de ' + max + ' elementos — remova um para adicionar outro.', true);
+              return;
+            }
+            selecionadas.add(rotulo);
+            chip.classList.add('selecionado');
+            chip.setAttribute('aria-pressed', 'true');
+          }
+          atualizarContador();
+        });
+        grade.appendChild(chip);
+      });
+
+      atualizarContador();
+      return { obter: () => Array.from(selecionadas) };
+    }
+
+    const UI = {
+      el: {},
+      _toastTimer: null,
+      _promptInstalacao: null,
+      _pixPayload: '',
+      _ultimoPrompt: '',
+      _temFotoLocal: false,
+      modoAtual: 'criar',
+      seletores: {},
+      chipsElementos: null,
+
+      init() {
+        this.el = {
+          btnInstalar: document.getElementById('btn-instalar'),
+          btnApoioHeader: document.getElementById('btn-apoio-header'),
+          apoioCard: document.getElementById('apoio-card'),
+          btnApoioCard: document.getElementById('btn-apoio-card'),
+          pixModal: document.getElementById('pix-modal'),
+          btnFecharPix: document.getElementById('btn-fechar-pix'),
+          btnPixCopiar: document.getElementById('btn-pix-copiar'),
+          pixQr: document.getElementById('pix-qr'),
+          form: document.getElementById('thumb-form'),
+          btnSubmit: document.getElementById('btn-submit'),
+          outputPlaceholder: document.getElementById('output-placeholder'),
+          outputLoading: document.getElementById('output-loading'),
+          loadingStatusText: document.getElementById('loading-status-text'),
+          outputContent: document.getElementById('output-content'),
+          promptCaixa: document.getElementById('prompt-caixa'),
+          promptContador: document.getElementById('prompt-contador'),
+          btnCopiarPrompt: document.getElementById('btn-copiar-prompt'),
+          btnCopiarGrande: document.getElementById('btn-copiar-grande'),
+          btnCompartilhar: document.getElementById('btn-compartilhar'),
+          btnVariacao: document.getElementById('btn-variacao'),
+          btnAbrirGemini: document.getElementById('btn-abrir-gemini'),
+          btnAbrirWhatsapp: document.getElementById('btn-abrir-whatsapp'),
+          campoFoto: document.getElementById('campo-foto'),
+          btnEscolherFoto: document.getElementById('btn-escolher-foto'),
+          inputFoto: document.getElementById('input-foto'),
+          fotoPreview: document.getElementById('foto-preview'),
+          fotoPreviewImg: document.getElementById('foto-preview-img'),
+          btnRemoverFoto: document.getElementById('btn-remover-foto'),
+          instrucoesIa: document.getElementById('instrucoes-ia'),
+          textoThumb: document.getElementById('texto-thumb'),
+          contadorTexto: document.getElementById('contador-texto'),
+          toast: document.getElementById('toast')
+        };
+
+        this.criarSeletores();
+        this.chipsElementos = criarChips(DADOS_THUMB.elementos, MAX_ELEMENTOS);
+
+        this.bindEvents();
+        this.aplicarConfig();
+        this.iniciarAnalytics();
+        this.iniciarAds();
+        this.registrarServiceWorker();
+        this.capturarInstalacao();
+      },
+
+      criarSeletores() {
+        this.seletores.expressao = criarSeletor('sel-expressao-container', DADOS_THUMB.expressao);
+        this.seletores.posicao = criarSeletor('sel-posicao-container', DADOS_THUMB.posicao);
+        this.seletores.estiloTexto = criarSeletor('sel-estilo-container', DADOS_THUMB.estiloTexto);
+        this.seletores.corTexto = criarSeletor('sel-cor-container', DADOS_THUMB.corTexto);
+        this.seletores.moldura = criarSeletor('sel-moldura-container', DADOS_THUMB.moldura);
+        this.seletores.cenario = criarSeletor('sel-cenario-container', DADOS_THUMB.cenario);
+        this.seletores.iluminacao = criarSeletor('sel-iluminacao-container', DADOS_THUMB.iluminacao);
+        this.seletores.fundo = criarSeletor('sel-fundo-container', DADOS_THUMB.fundo);
+        this.seletores.estiloGeral = criarSeletor('sel-estilo-geral-container', EXTRAS_THUMB.estiloGeral);
+        this.seletores.clickbait = criarSeletor('sel-clickbait-container', EXTRAS_THUMB.clickbait);
+        this.seletores.personagens = criarSeletor('sel-personagens-container', EXTRAS_THUMB.personagens);
+        this.seletores.clima = criarSeletor('sel-clima-container', EXTRAS_THUMB.clima);
+      },
+
+      iniciarAnalytics() {
+        const cfg = ConfigService.getConfig();
+        if (!cfg.gaMeasurementId) return;
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(cfg.gaMeasurementId);
+        document.head.appendChild(script);
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { window.dataLayer.push(arguments); };
+        window.gtag('js', new Date());
+        window.gtag('config', cfg.gaMeasurementId);
+      },
+
+      track(nome, params) {
+        try { if (window.gtag) window.gtag('event', nome, params || {}); } catch (e) { /* silencioso */ }
+      },
+
+      registrarServiceWorker() {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/sw.js').catch(() => { /* silencioso */ });
+        }
+      },
+
+      capturarInstalacao() {
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          this._promptInstalacao = e;
+          this.el.btnInstalar.classList.add('visivel');
+        });
+        this.el.btnInstalar.addEventListener('click', async () => {
+          if (!this._promptInstalacao) return;
+          this._promptInstalacao.prompt();
+          const { outcome } = await this._promptInstalacao.userChoice;
+          if (outcome === 'accepted') {
+            this.mostrarToast('✓ App instalado! Acesse pela tela inicial.');
+            this.track('pwa_instalado', {});
+          }
+          this._promptInstalacao = null;
+          this.el.btnInstalar.classList.remove('visivel');
+        });
+        window.addEventListener('appinstalled', () => {
+          this.el.btnInstalar.classList.remove('visivel');
+        });
+      },
+
+      aplicarConfig() {
+        const cfg = ConfigService.getConfig();
+        if (cfg.pixChave && cfg.pixNome && cfg.pixCidade) {
+          this._pixPayload = PixService.gerarPayload(cfg.pixChave, cfg.pixNome, cfg.pixCidade);
+          this.el.btnApoioHeader.style.display = 'inline-flex';
+          this.el.btnApoioHeader.addEventListener('click', () => this.abrirModalPix());
+          this.el.btnApoioCard.addEventListener('click', () => this.abrirModalPix());
+        }
+      },
+
+      abrirModalPix() {
+        if (!this._pixPayload) return;
+        this.el.pixQr.replaceChildren();
+        try {
+          new QRCode(this.el.pixQr, {
+            text: this._pixPayload,
+            width: 220,
+            height: 220,
+            correctLevel: QRCode.CorrectLevel.M
+          });
+        } catch (e) {
+          this.el.pixQr.textContent = 'Não foi possível gerar o QR Code. Use o botão "Copiar código Pix" abaixo.';
+        }
+        this.el.pixModal.style.display = 'flex';
+        this.track('pix_modal_aberto', {});
+      },
+
+      fecharModalPix() {
+        if (this.el.pixModal) this.el.pixModal.style.display = 'none';
+      },
+
+      iniciarAds() {
+        const cfg = ConfigService.getConfig();
+        if (!cfg.adsenseCliente) return;
+        if (!document.querySelector('script[src*="adsbygoogle.js"]')) {
+          const script = document.createElement('script');
+          script.async = true;
+          script.crossOrigin = 'anonymous';
+          script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + encodeURIComponent(cfg.adsenseCliente);
+          document.head.appendChild(script);
+        }
+        [['ad-topo', cfg.adsenseSlotTopo], ['ad-resultado', cfg.adsenseSlotResultado]].forEach(([id, slot]) => {
+          if (!slot) return;
+          const ins = document.getElementById('ad-ins-' + (id === 'ad-topo' ? 'topo' : 'resultado'));
+          if (!ins) return;
+          ins.setAttribute('data-ad-client', cfg.adsenseCliente);
+          ins.setAttribute('data-ad-slot', slot);
+          const container = document.getElementById(id);
+          if (container) container.classList.add('ativo');
+          try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+        });
+      },
+
+      bindEvents() {
+        this.el.btnFecharPix.addEventListener('click', () => this.fecharModalPix());
+        this.el.pixModal.addEventListener('click', (e) => {
+          if (e.target === this.el.pixModal) this.fecharModalPix();
+        });
+        this.el.btnPixCopiar.addEventListener('click', () => {
+          if (!this._pixPayload) return;
+          navigator.clipboard.writeText(this._pixPayload).then(() => {
+            this.mostrarToast('✓ Código Pix copiado! Cole no app do seu banco.');
+            this.track('pix_copiado', {});
+          }).catch(() => {
+            const ta = document.createElement('textarea');
+            ta.value = this._pixPayload;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+              document.execCommand('copy');
+              this.mostrarToast('✓ Código Pix copiado! Cole no app do seu banco.');
+              this.track('pix_copiado', {});
+            } catch (e2) {
+              this.mostrarToast('Não foi possível copiar. Escaneie o QR Code.', true);
+            }
+            ta.remove();
+          });
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            this.fecharModalPix();
+          }
+        });
+
+        // v9.2 — alterna Criar do zero / Editar minha foto
+        document.querySelectorAll('input[name="modoCriacao"]').forEach(radio => {
+          radio.addEventListener('change', () => this.alternarModo(radio.value));
+        });
+
+        // v9.2 — foto LOCAL (só preview/lembrete; nunca enviada)
+        this.el.btnEscolherFoto.addEventListener('click', () => this.el.inputFoto.click());
+        this.el.inputFoto.addEventListener('change', () => this.carregarFoto());
+        this.el.btnRemoverFoto.addEventListener('click', () => this.removerFoto());
+
+        this.el.textoThumb.addEventListener('input', () => {
+          const n = this.el.textoThumb.value.length;
+          this.el.contadorTexto.textContent = n + '/120 caracteres — sem texto, o prompt pede a cena sem palavras.';
+        });
+
+        // v9.1 — copiar (2 botões: mini no título + grande abaixo)
+        this.el.btnCopiarPrompt.addEventListener('click', () => this.copiarPrompt(this.el.btnCopiarPrompt));
+        this.el.btnCopiarGrande.addEventListener('click', () => this.copiarPrompt(this.el.btnCopiarGrande));
+
+        // v9.1 — compartilhar (menu nativo do celular)
+        this.el.btnCompartilhar.addEventListener('click', () => this.compartilharPrompt());
+
+        // v9.1 — variação
+        this.el.btnVariacao.addEventListener('click', () => {
+          this.el.outputContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          this.el.form.requestSubmit();
+        });
+
+        // v9.1 — Gemini: copia o prompt e abre o app/site
+        this.el.btnAbrirGemini.addEventListener('click', () => {
+          if (!this._ultimoPrompt) return;
+          this.copiarSilencioso().then(() => {
+            this.track('aberto_gemini', {});
+            this.mostrarToast('✓ Prompt copiado! Cole no Gemini' + (this.modoAtual === 'editar' ? ' e ANEXE sua foto original.' : ' para gerar.'));
+            window.open('https://gemini.google.com/app', '_blank', 'noopener');
+          });
+        });
+
+        // v9.1 — WhatsApp: deep link wa.me com o prompt preenchido
+        this.el.btnAbrirWhatsapp.addEventListener('click', () => {
+          if (!this._ultimoPrompt) return;
+          this.track('aberto_whatsapp', {});
+          window.open('https://wa.me/?text=' + encodeURIComponent(this._ultimoPrompt), '_blank', 'noopener');
+        });
+
+        this.el.form.addEventListener('submit', (e) => this.handleSubmit(e));
+      },
+
+      // v9.2 — alterna Criar do zero / Editar minha foto
+      alternarModo(modo) {
+        this.modoAtual = modo === 'editar' ? 'editar' : 'criar';
+        const isEditar = this.modoAtual === 'editar';
+        this.el.campoFoto.hidden = !isEditar;
+        this.atualizarInstrucoes();
+      },
+
+      // v9.2 — instruções adaptadas por modo
+      atualizarInstrucoes() {
+        const ol = this.el.instrucoesIa.querySelector('ol');
+        if (!ol) return;
+        ol.replaceChildren();
+
+        const passos = this.modoAtual === 'editar'
+          ? [
+              '1. Anexe SUA FOTO original na Meta AI/Gemini',
+              '2. Toque em Copiar prompt e cole na conversa',
+              '3. Envie — a IA edita sua foto mudando só o que você pediu!'
+            ]
+          : [
+              '1. Toque em Copiar prompt',
+              '2. Abra a Meta AI no WhatsApp (abaixo) ou o Gemini',
+              '3. Cole o prompt e envie — sua imagem sai de graça!'
+            ];
+
+        passos.forEach(txt => {
+          const li = document.createElement('li');
+          li.textContent = txt;
+          ol.appendChild(li);
+        });
+      },
+
+      // v9.2 — foto local: só preview (FileReader no próprio aparelho)
+      carregarFoto() {
+        const arquivo = this.el.inputFoto.files && this.el.inputFoto.files[0];
+        if (!arquivo) return;
+
+        if (!['image/jpeg', 'image/png', 'image/webp'].includes(arquivo.type)) {
+          this.mostrarToast('Formato não suportado. Use JPG, PNG ou WebP.', true);
+          this.el.inputFoto.value = '';
+          return;
+        }
+
+        const leitor = new FileReader();
+        leitor.onload = () => {
+          this.el.fotoPreviewImg.src = String(leitor.result || '');
+          this.el.fotoPreview.classList.add('visivel');
+          this._temFotoLocal = true;
+          this.mostrarToast('✓ Foto carregada — lembrete visual: anexe ela na IA junto com o prompt.');
+        };
+        leitor.onerror = () => {
+          this.mostrarToast('Não foi possível ler a foto. Tente outra.', true);
+        };
+        leitor.readAsDataURL(arquivo);
+      },
+
+      removerFoto() {
+        this.el.inputFoto.value = '';
+        this.el.fotoPreview.classList.remove('visivel');
+        this.el.fotoPreviewImg.removeAttribute('src');
+        this._temFotoLocal = false;
+      },
+
+      // v8.9 — composição dos extras: 'Nenhum' (vazio) = omitido ·
+      // 'auto' = frase "a critério da IA" · opção real = lowercase.
+      comporExtras(extraFormato) {
+        const partes = [];
+        if (extraFormato) partes.push(extraFormato);
+        ['estiloGeral', 'clickbait', 'personagens', 'clima'].forEach(k => {
+          const v = this.seletores[k] ? this.seletores[k].obter() : '';
+          if (!v) return;
+          if (v === 'auto') { partes.push(AUTO_EXTRA[k]); return; }
+          partes.push(v.toLowerCase());
+        });
+        return partes.join(' · ');
+      },
+
+      setLoading(loading, statusMsg) {
+        if (loading) {
+          this.el.outputPlaceholder.style.display = 'none';
+          this.el.outputContent.style.display = 'none';
+          this.el.outputLoading.style.display = 'flex';
+          this.el.loadingStatusText.textContent = statusMsg || 'Montando seu prompt...';
+          this.el.btnSubmit.disabled = true;
+        } else {
+          this.el.outputLoading.style.display = 'none';
+        }
+      },
+
+      // v9.1/v9.2 — envia as escolhas ao worker (/api/gerar-prompt) —
+      // a FÓRMULA fica secreta no servidor; a página recebe SÓ o
+      // prompt final. v9.2: payload inclui modo (criar|editar).
+      async handleSubmit(e) {
+        e.preventDefault();
+
+        const formatoEl = document.querySelector('input[name="formatoThumb"]:checked');
+        if (!formatoEl) {
+          this.mostrarToast('Selecione o formato da imagem.', true);
+          return;
+        }
+        const formato = FORMATOS_THUMB[formatoEl.value] || FORMATOS_THUMB.thumb_youtube;
+
+        const payload = {
+          modo: this.modoAtual,
+          proporcao: formato.proporcao,
+          expressao: this.seletores.expressao.obter(),
+          posicao: this.seletores.posicao.obter(),
+          estiloTexto: this.seletores.estiloTexto.obter(),
+          corTexto: this.seletores.corTexto.obter(),
+          moldura: this.seletores.moldura.obter(),
+          cenario: this.seletores.cenario.obter(),
+          iluminacao: this.seletores.iluminacao.obter(),
+          fundo: this.seletores.fundo.obter(),
+          elementos: this.chipsElementos.obter(),
+          extras: this.comporExtras(formato.extra),
+          textoThumb: this.el.textoThumb.value.trim()
+        };
+
+        this.setLoading(true, 'Montando seu prompt...');
+        this.el.outputLoading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 30000);
+
+        try {
+          const res = await fetch(API_BASE + '/api/gerar-prompt', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload),
+            signal: controller.signal
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) {
+            if (res.status === 429) throw new Error(data.erro || 'Limite de requisições atingido. Aguarde alguns minutos.');
+            throw new Error(data.erro || 'Falha ao montar o prompt (HTTP ' + res.status + ').');
+          }
+          if (!data.prompt) throw new Error('O servidor não devolveu um prompt. Tente novamente.');
+
+          this._ultimoPrompt = data.prompt;
+          this.el.promptCaixa.textContent = data.prompt;
+          this.el.promptContador.textContent = data.prompt.length.toLocaleString('pt-BR') + ' caracteres — pronto para colar na sua IA.';
+          this.el.outputPlaceholder.style.display = 'none';
+          this.el.outputContent.style.display = 'flex';
+
+          this.atualizarInstrucoes();
+
+          this.track('prompt_gerado', {
+            formato: formatoEl.value,
+            proporcao: formato.proporcao,
+            modo: this.modoAtual,
+            com_texto: payload.textoThumb ? 'sim' : 'nao'
+          });
+          if (this.modoAtual === 'editar') this.track('modo_editar_usado', {});
+
+          // v9.2 — lembrete amigável no modo editar
+          if (this.modoAtual === 'editar') {
+            if (!this._temFotoLocal) {
+              this.mostrarToast('✓ Prompt pronto! Lembre-se de anexar SUA FOTO original na IA junto com o prompt.');
+            } else {
+              this.mostrarToast('✓ Prompt pronto! Anexe a foto original + cole o prompt na IA.');
+            }
+          }
+        } catch (err) {
+          if (err.name === 'AbortError') {
+            this.mostrarToast('Tempo limite excedido ao montar o prompt. Tente novamente.', true);
+          } else {
+            this.mostrarToast(err.message || 'Falha ao montar o prompt.', true);
+          }
+          this.track('erro_geracao_prompt', {});
+          this.el.outputContent.style.display = 'none';
+          this.el.outputPlaceholder.style.display = 'flex';
+        } finally {
+          clearTimeout(timer);
+          this.setLoading(false);
+          this.el.outputContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      },
+
+      // v9.1 — copiar o prompt (2 pontos de entrada, mesmo serviço)
+      async copiarPrompt(btn) {
+        if (!this._ultimoPrompt) {
+          this.mostrarToast('Gere um prompt primeiro.', true);
+          return;
+        }
+        const sucesso = () => {
+          this.mostrarToast('✓ Prompt copiado! Cole na Meta AI ou no Gemini.');
+          this.track('prompt_copiado', {});
+          if (btn) {
+            const original = btn.textContent;
+            btn.textContent = 'Copiado!';
+            btn.disabled = true;
+            setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2000);
+          }
+        };
+        try {
+          await navigator.clipboard.writeText(this._ultimoPrompt);
+          sucesso();
+        } catch (e) {
+          try {
+            const ta = document.createElement('textarea');
+            ta.value = this._ultimoPrompt;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            ta.remove();
+            sucesso();
+          } catch (e2) {
+            this.mostrarToast('Não foi possível copiar automaticamente.', true);
+          }
+        }
+      },
+
+      // v9.1 — copia sem feedback de botão (usado antes de abrir a IA)
+      async copiarSilencioso() {
+        try {
+          await navigator.clipboard.writeText(this._ultimoPrompt);
+        } catch (e) {
+          try {
+            const ta = document.createElement('textarea');
+            ta.value = this._ultimoPrompt;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            ta.remove();
+          } catch (e2) { /* falha silenciosa — o usuário pode copiar manualmente */ }
+        }
+      },
+
+      // v9.1 — menu nativo de compartilhamento do celular
+      async compartilharPrompt() {
+        if (!this._ultimoPrompt) {
+          this.mostrarToast('Gere um prompt primeiro.', true);
+          return;
+        }
+        try {
+          if (navigator.share) {
+            await navigator.share({
+              title: 'Prompt de thumbnail — ViralScript AI',
+              text: this._ultimoPrompt
+            });
+            this.track('prompt_compartilhado', {});
+          } else {
+            await this.copiarPrompt(null);
+            this.mostrarToast('Compartilhamento não suportado — prompt copiado, cole manualmente!');
+          }
+        } catch (e) {
+          if (e && e.name !== 'AbortError') {
+            this.mostrarToast('Não foi possível compartilhar — use o botão Copiar.', true);
+          }
+        }
+      },
+
+      mostrarToast(mensagem, erro = false) {
+        const toast = this.el.toast;
+        if (!toast) return;
+        clearTimeout(this._toastTimer);
+        toast.textContent = mensagem;
+        toast.classList.toggle('erro', erro);
+        toast.style.display = 'block';
+        this._toastTimer = setTimeout(() => { toast.style.display = 'none'; }, 3500);
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const iniciar = () => {
+        UI.init();
+      };
+      if (window.VIRAL_CONFIG) {
+        iniciar();
+      } else {
+        setTimeout(iniciar, 0);
+      }
+    });
+  </script>
+</body>
+</html>
