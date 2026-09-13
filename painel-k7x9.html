@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Operações</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#05070f">
+  <link rel="manifest" href="/admin-manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/admin-icon.svg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="VS Admin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #05070f;
+      --card-bg: rgba(15, 23, 42, 0.65);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --input-bg: rgba(10, 15, 29, 0.8);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+      --accent: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.4);
+      --success: #10b981;
+      --danger: #ef4444;
+    }
+    html, body { max-width: 100%; overflow-x: clip; }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; min-width: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: var(--bg);
+      background-image:
+        radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(217, 70, 239, 0.08) 0%, transparent 40%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      margin: 0; padding: 36px 20px; line-height: 1.5;
+      min-height: 100vh; min-height: 100dvh;
+      overflow-wrap: anywhere; text-align: center;
+    }
+    .container { max-width: 760px; margin: 0 auto; width: 100%; }
+    header { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--card-border); }
+    .brand h1 { margin: 0; font-size: 1.5rem; font-weight: 800; color: #ffffff; }
+    .brand h1 span { background: var(--accent-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .badge-admin {
+      display: inline-block; margin-top: 8px; padding: 4px 14px; border-radius: 30px;
+      background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    }
+    .card {
+      background: var(--card-bg); backdrop-filter: blur(16px);
+      padding: 24px; border-radius: 16px; border: 1px solid var(--card-border);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); margin-bottom: 24px; max-width: 100%;
+    }
+    .card-title {
+      margin: 0 0 18px 0; font-size: 1rem; font-weight: 700; color: #ffffff;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      border-bottom: 1px solid var(--card-border); padding-bottom: 12px; text-wrap: balance;
+    }
+    .card-title svg { color: var(--accent); flex-shrink: 0; }
+    label { display: block; margin: 14px 0 6px; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; text-align: center; }
+    input[type="password"], input[type="text"], textarea {
+      width: 100%; padding: 13px 15px; border-radius: 10px;
+      border: 1px solid var(--card-border); background: var(--input-bg);
+      color: var(--text-main); font-size: 15px; font-family: inherit;
+      transition: all 0.25s ease; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    textarea { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; text-align: left; resize: vertical; }
+    input:focus, textarea:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 4px var(--accent-glow), inset 0 2px 4px rgba(0,0,0,0.2); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 13px 22px; min-height: 46px; border-radius: 10px;
+      font-family: inherit; font-size: 0.9rem; font-weight: 700; cursor: pointer;
+      transition: all 0.25s ease; border: 1px solid var(--card-border);
+      background: var(--input-bg); color: var(--text-main); max-width: 100%;
+    }
+    .btn:hover:not(:disabled) { border-color: var(--accent); transform: translateY(-2px); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn.principal { background: var(--accent-gradient); border: none; color: #fff; box-shadow: 0 6px 20px var(--accent-glow); }
+    .btn.perigo { border-color: rgba(239, 68, 68, 0.4); color: #fca5a5; }
+    .btn.perigo:hover:not(:disabled) { border-color: var(--danger); background: rgba(239, 68, 68, 0.1); }
+    .btn.largo { width: 100%; margin-top: 14px; }
+    .linha-btn { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 14px; }
+    .nota {
+      font-size: 0.75rem; line-height: 1.6;
+      padding: 10px 12px; border-radius: 8px; margin-top: 12px;
+      background: rgba(245, 158, 11, 0.06); border: 1px solid rgba(245, 158, 11, 0.25);
+      color: #fbbf24;
+    }
+    .status-caixa {
+      margin-top: 14px; padding: 12px; border-radius: 10px; font-size: 0.8rem;
+      font-family: 'JetBrains Mono', monospace; text-align: left; line-height: 1.6;
+      background: rgba(5, 7, 15, 0.6); border: 1px solid var(--card-border);
+      max-height: 220px; overflow-y: auto; white-space: pre-wrap; display: none;
+    }
+    .status-caixa.visivel { display: block; }
+    .info-arquivo {
+      margin-top: 10px; padding: 10px; border-radius: 8px; font-size: 0.75rem;
+      background: rgba(99, 102, 241, 0.08); border: 1px solid var(--card-border);
+      color: #a5b4fc; display: none;
+    }
+    .info-arquivo.visivel { display: block; }
+    .toggle-salvar { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; font-size: 0.78rem; color: var(--text-muted); }
+    .toggle-salvar input { width: 16px; height: 16px; accent-color: var(--accent); }
+    .spinner-mini {
+      width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.2);
+      border-top-color: #ffffff; border-radius: 50%; animation: spin 0.8s linear infinite; display: none;
+    }
+    .spinner-mini.ativo { display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .campo-senha { position: relative; }
+    .campo-senha input { padding-right: 48px; }
+    .btn-olho {
+      position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; color: var(--text-muted);
+      cursor: pointer; width: 40px; height: 40px; padding: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .btn-olho:hover { color: #ffffff; }
+    footer { margin-top: 30px; font-size: 0.72rem; color: var(--text-muted); padding-top: 20px; border-top: 1px solid var(--card-border); }
+    #btn-instalar { display: none; }
+    #btn-instalar.visivel { display: inline-flex; }
+
+    /* v9.6.1 — TOAST no PADRÃO DAS OUTRAS PÁGINAS (.alert-toast do site):
+       gradiente verde/vermelho, animação slideUp, blur e borda suave.
+       Substitui o toast com estilo inline da v9.6. */
+    .alert-toast {
+      position: fixed;
+      bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.45;
+      box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);
+      display: none;
+      z-index: 3000;
+      animation: slideUp 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      width: calc(100vw - 32px);
+      max-width: 440px;
+      overflow-wrap: anywhere;
+    }
+    .alert-toast.erro {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      box-shadow: 0 12px 30px rgba(239, 68, 68, 0.4);
+    }
+    @keyframes slideUp {
+      from { transform: translate(-50%, 30px); opacity: 0; }
+      to { transform: translate(-50%, 0); opacity: 1; }
+    }
+
+    /* v9.6.1 — MODAL DE CONFIRMAÇÃO no PADRÃO DAS OUTRAS PÁGINAS
+       (.modal-overlay / .modal-card) — substitui o confirm() NATIVO
+       do navegador (caixa branca do sistema, quebrava o design). */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(5, 7, 15, 0.85);
+      backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 16px;
+    }
+    .modal-card {
+      position: relative;
+      background: var(--card-bg);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      box-shadow: 0 20px 50px rgba(99, 102, 241, 0.2);
+      border-radius: 20px;
+      padding: 32px 24px;
+      max-width: 500px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      text-align: center;
+    }
+    .modal-card h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      text-wrap: balance;
+    }
+    .modal-card h2 svg { width: 22px; height: 22px; color: #a5b4fc; flex-shrink: 0; }
+    .modal-card p { color: var(--text-muted); font-size: 0.92rem; margin: 0 0 20px 0; text-align: center; line-height: 1.6; }
+    .modal-botoes { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .btn-modal-cancelar {
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 13px 22px;
+      min-height: 46px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .btn-modal-cancelar:hover { border-color: var(--accent); }
+    .btn-modal-confirmar {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: #ffffff;
+      border: none;
+      padding: 13px 22px;
+      min-height: 46px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+      transition: transform 0.2s ease;
+    }
+    .btn-modal-confirmar:hover { transform: translateY(-2px); }
+    .btn-modal-cancelar:focus-visible, .btn-modal-confirmar:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <header>
+      <div class="brand">
+        <h1>ViralScript <span>Operações</span></h1>
+      </div>
+      <div class="badge-admin">Área privada do dono</div>
+    </header>
+
+    <!-- ETAPA 1: CREDENCIAL (senha de admin — o painel publica CÓDIGO;
+         os Secrets do worker são gerenciados no dashboard Cloudflare) -->
+    <div class="card" id="card-credenciais">
+      <div class="card-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        1 · Credencial
+      </div>
+
+      <label for="inp-senha">Senha de Admin do worker:</label>
+      <div class="campo-senha">
+        <input type="password" id="inp-senha" autocomplete="off" placeholder="Digite a Senha de Admin...">
+        <button type="button" class="btn-olho" id="btn-olho-senha" aria-label="Mostrar a senha">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        </button>
+      </div>
+
+      <div class="toggle-salvar">
+        <input type="checkbox" id="chk-salvar" checked>
+        <label for="chk-salvar" style="margin:0;">Salvar a senha neste navegador (localStorage — só neste aparelho)</label>
+      </div>
+
+      <button type="button" class="btn principal largo" id="btn-testar">
+        <span class="spinner-mini" id="spin-testar"></span>
+        Testar conexão
+      </button>
+
+      <!-- v9.4.5/v9.6 — Instalar como app (display controlado SÓ pelo CSS) -->
+      <button type="button" class="btn largo" id="btn-instalar">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        <span>Instalar App</span>
+      </button>
+
+      <div class="nota">
+        <strong>Ciclo v9.5 (realidade atual):</strong> os Secrets do worker (Senha de Admin, API Token Cloudflare, Account ID) <strong>já estão gravados no worker</strong> — para trocá-los, use o <strong>dashboard do Cloudflare</strong> (Workers → viralscriptai → Settings → Variables). Este painel publica <strong>CÓDIGO</strong> e usa a Senha de Admin para autenticar as operações (check, backup e publicação). Com "Salvar" desmarcado, a senha NÃO fica no aparelho — você a digita a cada visita (mais seguro em aparelho compartilhado).
+      </div>
+    </div>
+
+    <!-- ETAPA 2: EDITOR/UPLOAD -->
+    <div class="card" id="card-editor" style="display:none;">
+      <div class="card-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+        2 · Código do Worker
+      </div>
+
+      <div class="linha-btn">
+        <button type="button" class="btn" id="btn-baixar-atual">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Baixar backup do atual
+        </button>
+        <button type="button" class="btn" id="btn-escolher-arquivo">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          Carregar worker.js do aparelho
+        </button>
+        <input type="file" id="inp-arquivo" accept=".js,.txt" hidden>
+      </div>
+
+      <div class="info-arquivo" id="info-arquivo"></div>
+
+      <label for="txt-worker">Conteúdo (editável — ou carregado do arquivo):</label>
+      <textarea id="txt-worker" rows="10" placeholder="Cole o código do worker aqui, ou use o botão acima para carregar o arquivo .js..."></textarea>
+
+      <div class="linha-btn">
+        <button type="button" class="btn" id="btn-validar">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Validar sintaxe (checklist)
+        </button>
+      </div>
+
+      <div class="status-caixa" id="status-validar"></div>
+
+      <button type="button" class="btn perigo largo" id="btn-publicar">
+        <span class="spinner-mini" id="spin-publicar"></span>
+        3 · Publicar no Cloudflare (substitui o worker atual)
+      </button>
+
+      <div class="nota" id="nota-publicar">
+        Antes de publicar, faça <strong>"Baixar backup do atual"</strong> — é seu rollback. Se a publicação falhar por erro de código, o worker anterior CONTINUA no ar.
+      </div>
+
+      <div class="status-caixa" id="status-publicar"></div>
+    </div>
+
+    <footer>
+      <p>Página privada · noindex · sem link na navegação</p>
+      <p>ViralScript AI · <a href="/" style="color:#a5b4fc;">voltar ao site</a></p>
+    </footer>
+  </div>
+
+  <!-- v9.6.1 — MODAL DE CONFIRMAÇÃO (substitui o confirm() nativo do
+       navegador — agora no padrão visual das outras páginas do site).
+       Fecha com: Cancelar · clique fora · tecla Escape. -->
+  <div id="modal-confirmar" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="confirm-titulo">
+    <div class="modal-card">
+      <h2 id="confirm-titulo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        <span id="confirm-titulo-texto">Publicar no Cloudflare</span>
+      </h2>
+      <p id="confirm-mensagem">Publicar AGORA substitui o worker em PRODUÇÃO (mesma URL, todos os usuários). Se o deploy falhar por erro de código, o worker anterior CONTINUA no ar. Confirma?</p>
+      <div class="modal-botoes">
+        <button type="button" class="btn-modal-cancelar" id="btn-confirmar-cancelar">Cancelar</button>
+        <button type="button" class="btn-modal-confirmar" id="btn-confirmar-ok">Publicar agora</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- v9.6.1 — Toast na classe .alert-toast padrão do site -->
+  <div id="toast-admin" class="alert-toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // ============================================================
+    // Painel privado do dono — v9.6.1 (UX PADRÃO DO SITE)
+    // v9.6.1 — O confirm() NATIVO foi substituído por um MODAL
+    //   estilizado (padrão .modal-overlay/.modal-card das outras
+    //   páginas — a caixa branca do navegador quebrava o design);
+    //   o toast agora usa a classe .alert-toast padrão do site
+    //   (animação slideUp, blur, borda) com duração adaptativa
+    //   (3,5s base como nas outras páginas, até 8s p/ mensagens
+    //   longas de diagnóstico); validação do código agora roda
+    //   ANTES da confirmação (sem pedir confirmação de código
+    //   inválido); modal fecha por Cancelar/clique fora/Escape.
+    // v9.6 (CONFORMIDADE DE SEGURANÇA v9.5):
+    //  · admin-check AGORA ENVIA X-Admin-Senha (worker v9.5.2 exigirá;
+    //    o worker atual ignora o header — compatível nos 2 sentidos);
+    //  · publish NÃO envia mais admin_senha/cf_api_token/cf_account_id
+    //    no corpo (bootstrap v9.4 aposentado — o worker ignora);
+    //  · campos Token/Account REMOVIDOS do form + resquícios do
+    //    localStorage limpados no init (saneamento);
+    //  · chk-salvar FUNCIONAL: marcado salva a senha; desmarcado,
+    //    NÃO persiste (digitar a cada visita);
+    //  · notas descrevem a realidade v9.5 (Secrets no dashboard;
+    //    publicação = só código).
+    // Mantido INTACTO: rotas, headers de senha (baixar/salvar),
+    // checklist de validação, SW c/ escopo restrito + auto-relato
+    // (v9.4.4), instalação PWA (v9.4.5), olhos 👁, validação automática.
+    // NUNCA innerHTML dinâmico (mensagens do modal via textContent).
+    // ============================================================
+
+    const API_BASE = 'https://viralscriptai.tiodaweb03.workers.dev';
+
+    const LS_SENHA = 'admin_senha_v4';
+    // Resquícios do bootstrap v9.4 (aposentado) — limpos no init:
+    const LS_LEGADO = ['admin_token_v4', 'admin_account_v4'];
+
+    let _toastTimer = null;
+    let _ultimaVersao = '';
+    let _promptInstalacao = null;
+    // v9.6.1 — resolver do modal de confirmação (null = fechado)
+    let _resolverConfirmar = null;
+
+    function $(id) { return document.getElementById(id); }
+
+    function mostrarStatus(caixaId, texto, erro) {
+      const caixa = $(caixaId);
+      caixa.textContent = texto;
+      caixa.classList.add('visivel');
+      caixa.style.color = erro ? '#fca5a5' : '#86efac';
+      caixa.style.borderColor = erro ? 'rgba(239,68,68,0.4)' : 'rgba(16,185,129,0.4)';
+    }
+
+    // v9.6.1 — toast na CLASSE padrão do site (.alert-toast): mesma
+    // aparência das outras páginas + duração adaptativa para dar
+    // tempo de ler mensagens longas de diagnóstico.
+    function mostrarToast(mensagem, erro = false) {
+      const toast = $('toast-admin');
+      clearTimeout(_toastTimer);
+      toast.textContent = mensagem;
+      toast.classList.toggle('erro', erro);
+      toast.style.display = 'block';
+      const duracao = Math.min(8000, Math.max(3500, mensagem.length * 55));
+      _toastTimer = setTimeout(() => { toast.style.display = 'none'; }, duracao);
+    }
+
+    // v9.6.1 — MODAL DE CONFIRMAÇÃO (substitui o confirm() nativo).
+    // Retorna Promise<boolean>: true = confirmado, false = cancelado.
+    // Foco vai para "Cancelar" (opção segura) ao abrir.
+    function abrirConfirmacao(titulo, mensagem, rotuloOk) {
+      if (_resolverConfirmar) fecharConfirmacao(false);
+      return new Promise((resolver) => {
+        _resolverConfirmar = resolver;
+        $('confirm-titulo-texto').textContent = titulo;
+        $('confirm-mensagem').textContent = mensagem;
+        $('btn-confirmar-ok').textContent = rotuloOk || 'Confirmar';
+        $('modal-confirmar').style.display = 'flex';
+        setTimeout(() => { $('btn-confirmar-cancelar').focus(); }, 60);
+      });
+    }
+
+    function fecharConfirmacao(resultado) {
+      const modal = $('modal-confirmar');
+      if (!modal || modal.style.display !== 'flex') return;
+      modal.style.display = 'none';
+      if (_resolverConfirmar) {
+        const resolver = _resolverConfirmar;
+        _resolverConfirmar = null;
+        resolver(resultado);
+      }
+    }
+
+    function spinner(id, ativo) {
+      $(id).classList.toggle('ativo', ativo);
+    }
+
+    function alternarCampo(idInput, idBotao) {
+      const input = $(idInput);
+      input.type = input.type === 'password' ? 'text' : 'password';
+      $(idBotao).setAttribute('aria-label', input.type === 'password' ? 'Mostrar' : 'Ocultar');
+    }
+
+    // v9.6 — chk-salvar FUNCIONAL: só persiste se marcado.
+    function carregarSenha() {
+      try { return localStorage.getItem(LS_SENHA) || ''; }
+      catch (e) { return ''; }
+    }
+
+    function salvarSenhaSePermitido() {
+      try {
+        if ($('chk-salvar').checked) {
+          localStorage.setItem(LS_SENHA, $('inp-senha').value.trim());
+        }
+      } catch (e) { /* localStorage indisponível */ }
+    }
+
+    function validarCredenciais() {
+      const senha = $('inp-senha').value.trim();
+      if (!senha) {
+        mostrarToast('Preencha a Senha de Admin.', true);
+        return null;
+      }
+      salvarSenhaSePermitido();
+      return { senha: senha };
+    }
+
+    function abrirEditor() {
+      $('card-editor').style.display = 'block';
+      $('card-editor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ---------- TESTAR CONEXÃO (admin-check) ----------
+    // v9.6 — envia X-Admin-Senha (worker v9.5.2 exigirá; o atual ignora).
+    async function testarConexao() {
+      const cred = validarCredenciais();
+      if (!cred) return;
+      spinner('spin-testar', true);
+      $('btn-testar').disabled = true;
+      try {
+        const res = await fetch(API_BASE + '/api/admin-check', {
+          method: 'GET',
+          headers: { 'X-Admin-Senha': cred.senha }
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) {
+          throw new Error(data.erro || 'Falha na verificação (HTTP ' + res.status + ').');
+        }
+        _ultimaVersao = data.versao || 'desconhecida';
+        abrirEditor();
+        mostrarStatus('status-validar',
+          '✓ Conectado!\nVersão do worker no ar: ' + _ultimaVersao + '\nSecrets ativos — publicação liberada.', false);
+        mostrarToast('✓ Conectado! Worker versão ' + _ultimaVersao + '.');
+      } catch (err) {
+        mostrarToast(err.message || 'Falha de rede ao testar conexão.', true);
+      } finally {
+        spinner('spin-testar', false);
+        $('btn-testar').disabled = false;
+      }
+    }
+
+    // ---------- BACKUP ----------
+    async function baixarBackup() {
+      const cred = validarCredenciais();
+      if (!cred) return;
+      spinner('spin-testar', true);
+      $('btn-baixar-atual').disabled = true;
+      try {
+        const res = await fetch(API_BASE + '/api/admin-baixar', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Admin-Senha': cred.senha
+          },
+          body: JSON.stringify({})
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) {
+          throw new Error(data.erro || 'Falha ao baixar (HTTP ' + res.status + ').');
+        }
+        const texto = data.codigo || '';
+        const dataISO = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
+        const blob = new Blob([texto], { type: 'text/javascript' });
+        const urlBlob = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = urlBlob;
+        a.download = 'worker-backup-' + dataISO + '.js';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(urlBlob), 1000);
+        mostrarToast('✓ Backup baixado (' + Math.round(texto.length / 1024) + ' KB) — guarde como rollback!');
+      } catch (err) {
+        mostrarToast(err.message || 'Falha ao baixar o backup.', true);
+      } finally {
+        spinner('spin-testar', false);
+        $('btn-baixar-atual').disabled = false;
+      }
+    }
+
+    // ---------- UPLOAD DO ARQUIVO (validação automática) ----------
+    function carregarArquivo() {
+      const arquivo = $('inp-arquivo').files && $('inp-arquivo').files[0];
+      if (!arquivo) return;
+      const leitor = new FileReader();
+      leitor.onload = () => {
+        const conteudo = String(leitor.result || '');
+        $('txt-worker').value = conteudo;
+        const info = $('info-arquivo');
+        info.textContent = '✓ "' + arquivo.name + '" — ' + Math.round(arquivo.size / 1024) + ' KB, ' + conteudo.split('\n').length + ' linhas.';
+        info.classList.add('visivel');
+        mostrarToast('✓ Arquivo carregado — validação automática executada.');
+        validarCodigo();
+      };
+      leitor.onerror = () => {
+        mostrarToast('Não foi possível ler o arquivo.', true);
+      };
+      leitor.readAsText(arquivo);
+    }
+
+    // ---------- VALIDAÇÃO (checklist — lição v8.8.4) ----------
+    function validarCodigo() {
+      const codigo = $('txt-worker').value;
+      const caixa = $('status-validar');
+      caixa.classList.add('visivel');
+      const problemas = [];
+
+      if (!codigo.trim()) {
+        problemas.push('O código está vazio.');
+      } else {
+        if (/for\s*\(\s*(const|let|var)\s+\w+\s+de\s+/i.test(codigo)) problemas.push('Encontrado "for (... de ...)" — deveria ser "of".');
+        if (!/export default/.test(codigo)) problemas.push('Falta "export default".');
+        if (!/async fetch\s*\(/.test(codigo)) problemas.push('Falta "async fetch(".');
+        if (!/PROMPT_TEMPLATE/.test(codigo)) problemas.push('PROMPT_TEMPLATE não encontrado.');
+        const abre = (codigo.match(/{/g) || []).length;
+        const fecha = (codigo.match(/}/g) || []).length;
+        if (Math.abs(abre - fecha) > 2) problemas.push('Chaves { } desbalanceadas (' + abre + ' vs ' + fecha + ').');
+        if (!/;\s*$/.test(codigo.trim())) problemas.push('Não termina com ";" — possível truncamento.');
+        if (codigo.length < 20000) problemas.push('Suspeito de truncado (' + Math.round(codigo.length / 1024) + ' KB — completo ~90 KB).');
+      }
+
+      if (problemas.length) {
+        caixa.style.color = '#fca5a5';
+        caixa.style.borderColor = 'rgba(239,68,68,0.4)';
+        caixa.textContent = '❌ VALIDAÇÃO — ' + problemas.length + ' problema(s):\n\n' + problemas.map((p, i) => (i + 1) + '. ' + p).join('\n');
+        return false;
+      }
+      caixa.style.color = '#86efac';
+      caixa.style.borderColor = 'rgba(16,185,129,0.4)';
+      caixa.textContent = '✓ CHECKLIST OK — estrutura esperada encontrada.\n\nO worker repete a validação no servidor; se o deploy falhar, o anterior CONTINUA no ar.';
+      return true;
+    }
+
+    // ---------- PUBLICAR ----------
+    // v9.6 — corpo SÓ com o código (sem credenciais: o worker v9.5.1+
+    // as ignora; autenticação é exclusivamente pelo header X-Admin-Senha).
+    // v9.6.1 — confirm() NATIVO → MODAL estilizado; validação roda
+    // ANTES da confirmação (não pedimos confirmação de código inválido).
+    async function publicar() {
+      const cred = validarCredenciais();
+      if (!cred) return;
+
+      const codigo = $('txt-worker').value;
+      if (!codigo.trim()) {
+        mostrarToast('Nada para publicar — cole ou carregue o código.', true);
+        return;
+      }
+
+      if (!validarCodigo()) {
+        mostrarToast('Corrija os problemas da validação antes de publicar.', true);
+        return;
+      }
+
+      const confirmado = await abrirConfirmacao(
+        'Publicar no Cloudflare',
+        'Publicar AGORA substitui o worker em PRODUÇÃO (mesma URL, todos os usuários). Se o deploy falhar por erro de código, o worker anterior CONTINUA no ar. Confirma?',
+        'Publicar agora'
+      );
+      if (!confirmado) return;
+
+      spinner('spin-publicar', true);
+      $('btn-publicar').disabled = true;
+
+      try {
+        const res = await fetch(API_BASE + '/api/admin-salvar', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Admin-Senha': cred.senha
+          },
+          body: JSON.stringify({ codigo: codigo })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) {
+          throw new Error(data.erro || 'FALHA NA PUBLICAÇÃO (HTTP ' + res.status + ').');
+        }
+        mostrarStatus('status-publicar', (data.mensagem || '✓ Publicado!') + '\n\nTeste o site: 1 roteiro + 1 prompt de imagem.', false);
+        mostrarToast('✓ Worker publicado com sucesso!');
+      } catch (err) {
+        mostrarStatus('status-publicar', (err.message || 'Falha ao publicar.'), true);
+        mostrarToast('Falha na publicação — veja os detalhes.', true);
+      } finally {
+        spinner('spin-publicar', false);
+        $('btn-publicar').disabled = false;
+      }
+    }
+
+    // ---------- INSTALAR COMO APP (v9.4.5) ----------
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      _promptInstalacao = e;
+      $('btn-instalar').classList.add('visivel');
+    });
+
+    window.addEventListener('appinstalled', () => {
+      $('btn-instalar').classList.remove('visivel');
+      mostrarToast('✓ Painel instalado como app!');
+    });
+
+    async function instalarApp() {
+      if (!_promptInstalacao) {
+        mostrarToast('O Chrome ainda não oferece a instalação — confira o toast do SW (verde = recarregue 1×) e se /admin-manifest.json, /admin-sw.js e /admin-icon.svg respondem sem 404 (sem .txt no nome!).', true);
+        return;
+      }
+      _promptInstalacao.prompt();
+      const { outcome } = await _promptInstalacao.userChoice;
+      if (outcome === 'accepted') {
+        mostrarToast('✓ Instalando o painel...');
+      }
+      _promptInstalacao = null;
+      $('btn-instalar').classList.remove('visivel');
+    }
+
+    // ---------- INIT ----------
+    document.addEventListener('DOMContentLoaded', () => {
+      // v9.6 — saneamento dos resquícios do bootstrap aposentado:
+      LS_LEGADO.forEach((chave) => {
+        try { localStorage.removeItem(chave); } catch (e) { /* ignora */ }
+      });
+
+      // Restaura a senha salva (se houver) — chk-salvar FUNCIONAL:
+      try { $('inp-senha').value = carregarSenha(); } catch (e) { /* ignora */ }
+
+      $('btn-olho-senha').addEventListener('click', () => alternarCampo('inp-senha', 'btn-olho-senha'));
+
+      // v9.6.1 — eventos do modal de confirmação:
+      // Cancelar / clique fora / Escape = NÃO publicar (retorno seguro).
+      $('btn-confirmar-cancelar').addEventListener('click', () => fecharConfirmacao(false));
+      $('btn-confirmar-ok').addEventListener('click', () => fecharConfirmacao(true));
+      $('modal-confirmar').addEventListener('click', (e) => {
+        if (e.target === $('modal-confirmar')) fecharConfirmacao(false);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') fecharConfirmacao(false);
+      });
+
+      // Registro do SW do painel c/ ESCOPO RESTRITO e AUTO-RELATO (v9.4.4):
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/admin-sw.js', { scope: '/painel-k7x9.html' })
+          .then(() => {
+            if (!navigator.serviceWorker.controller) {
+              mostrarToast('✓ SW do painel registrado — recarregue a página 1× para habilitar a instalação.');
+            }
+          })
+          .catch((err) => {
+            const motivo = (err && err.message) ? err.message : String(err);
+            mostrarToast('SW do painel FALHOU: ' + motivo + ' — confira se /admin-sw.js responde sem 404 (sem .txt no nome!).', true);
+          });
+      }
+
+      $('btn-instalar').addEventListener('click', instalarApp);
+      $('btn-testar').addEventListener('click', testarConexao);
+      $('btn-baixar-atual').addEventListener('click', baixarBackup);
+      $('btn-escolher-arquivo').addEventListener('click', () => $('inp-arquivo').click());
+      $('inp-arquivo').addEventListener('change', carregarArquivo);
+      $('btn-validar').addEventListener('click', () => {
+        if (!validarCodigo()) mostrarToast('Problemas na validação — veja os detalhes.', true);
+      });
+      $('btn-publicar').addEventListener('click', publicar);
+    });
+  </script>
+</body>
+</html>
