@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <!-- viewport-fit=cover: necessário para o env(safe-area-inset) do rodapé -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Política de Privacidade | ViralScript AI</title>
+  <meta name="description" content="Política de Privacidade do ViralScript AI: como tratamos (e não tratamos) seus dados, chaves de API, fotos de thumbnail e cookies.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- JetBrains Mono: carregada aqui porque os <code> das chaves de
+       localStorage são estilizados com ela no estilo.css -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/estilo.css">
+
+  <!-- v8.7 — Google AdSense: script oficial no <head> de TODAS as páginas
+       (exigência do Google para verificação de propriedade do site).
+       Página legal: recebe o script, sem slot de anúncio. -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2359494647300339"
+       crossorigin="anonymous"></script>
+
+  <!-- Dados estruturados BreadcrumbList: informa a hierarquia da página ao Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://viralscript-ia.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Privacidade", "item": "https://viralscript-ia.com/politica-privacidade.html" }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <a class="brand" href="/">
+        <div class="brand-icon" aria-hidden="true">
+          <img src="/robot.svg" alt="" width="32" height="32">
+        </div>
+        <h1>ViralScript <span>AI</span></h1>
+      </a>
+      <nav class="nav-topo">
+        <a href="/">Início</a>
+        <a href="/guia-roteiros-virais.html">Guia Viral</a>
+        <a href="/guia-chave-api-gratis.html">Chave Grátis</a>
+        <a href="/guia-plataformas.html">Plataformas</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/sobre.html">Sobre</a>
+        <a href="/contato.html">Contato</a>
+      </nav>
+    </header>
+
+    <article class="artigo">
+      <h1>Política de Privacidade</h1>
+      <p class="meta">Última atualização: 22/09/2025 · Em conformidade com a LGPD (Lei 13.709/2018)</p>
+
+      <p>Esta Política de Privacidade explica como o <strong>ViralScript AI</strong> ("nós", "o serviço") trata informações ao ser utilizado. Resumimos desde já: <strong>coletamos o mínimo possível</strong> — não existe cadastro, login ou banco de dados de usuários.</p>
+
+      <h2>1. Informações que NÃO coletamos</h2>
+      <ul>
+        <li><strong>Dados pessoais de cadastro:</strong> não pedimos nome, e-mail, CPF ou telefone para usar o gerador;</li>
+        <li><strong>Suas chaves de API:</strong> não as armazenamos em nossos servidores (detalhes na seção 3);</li>
+        <li><strong>Seus roteiros e thumbnails:</strong> não guardamos os conteúdos gerados — eles ficam apenas no seu navegador;</li>
+        <li><strong>Histórico de uso:</strong> não mantemos registro do que você gerou;</li>
+        <li><strong>O conteúdo dos seus pedidos:</strong> temas, nichos e o material da sua ideia que você digita ou cola NÃO são enviados a serviços de medição — nunca saem do fluxo da geração. O mesmo vale para a foto que você opcionalmente envia no gerador de thumbnails.</li>
+      </ul>
+
+      <h2>2. Informações armazenadas no SEU navegador (localStorage)</h2>
+      <p>Para funcionar, o app salva localmente no seu navegador, usando a tecnologia <code>localStorage</code>, sob estas chaves exatas:</p>
+      <ul>
+        <li><code>vs_api_key_gemini</code> — a sua <strong>chave de API do Google Gemini</strong> (cofre próprio deste provedor);</li>
+        <li><code>vs_api_key_groq</code> — a sua <strong>chave de API da Groq</strong> (cofre próprio deste provedor);</li>
+        <li><code>vs_api_key_cerebras</code> — a sua <strong>chave de API da Cerebras</strong> (cofre próprio deste provedor);</li>
+        <li><code>vs_api_key_mistral</code> — a sua <strong>chave de API da Mistral</strong> (cofre próprio deste provedor);</li>
+        <li><code>vs_provedor</code> — a <strong>preferência de provedor de IA</strong> que você está usando no momento (Gemini, Groq, Cerebras ou Mistral);</li>
+        <li><code>vs_modo</code> — a <strong>preferência do modo de criação</strong> que você escolheu ("Modo Rápido" ou "Minha Ideia");</li>
+        <li><code>vs_ideia_rascunho</code> — o <strong>rascunho do texto do modo Minha Ideia</strong>, salvo enquanto você digita para que não se perca se a página recarregar (fica apenas no seu navegador);</li>
+        <li><code>vs_historico</code> — o <strong>histórico dos últimos roteiros</strong> gerados (para você consultá-los depois), com limite de 20 itens.</li>
+      </ul>
+      <p>Cada provedor tem o seu <strong>cofre próprio de chave</strong>: você pode configurar quantos quiser ao mesmo tempo e alternar entre eles com um toque, sem precisar recolar a chave. O gerador de thumbnails (página "Thumbnails") <strong>reutiliza exatamente este mesmo cofre</strong> — a chave do Gemini configurada para roteiros funciona lá também — e não cria nenhuma chave ou registro adicional. Se você usava versões anteriores do app, suas chaves antigas (armazenadas como <code>vs_api_key</code> ou <code>vs_api_key_openrouter</code>) são <strong>migradas automaticamente</strong> para um cofre válido no primeiro carregamento e os registros antigos são removidos. Você pode conferir esses nomes inspecionando o armazenamento do site no seu navegador — eles correspondem exatamente ao que esta política declara. Esses dados <strong>não são enviados a nós nem a terceiros</strong> por essa via e podem ser apagados a qualquer momento: limpando os dados de navegação do seu navegador. Como não há servidor guardando esses dados, trocar de dispositivo ou navegador significa começar um histórico novo — e, para levar seu histórico a outro dispositivo, o app oferece os botões "Exportar" e "Importar", que transferem os dados por um arquivo que <strong>você mesmo</strong> carrega (nada é enviado a servidor algum nesse processo).</p>
+
+      <h2>3. Sobre a sua chave de API (transparência total)</h2>
+      <p>Para gerar um roteiro ou uma thumbnail, a chave do provedor responsável precisa ser apresentada ao provedor de IA. O fluxo é o seguinte:</p>
+      <ol>
+        <li>Seu navegador envia a solicitação (plataforma, nicho, tema, tom, duração opcional e — no modo Minha Ideia — o texto da sua ideia, + a chave do provedor ativo) ao nosso servidor intermediário — um proxy minimalista hospedado no Cloudflare Workers. No recurso "Sugerir temas", apenas o nicho é enviado. No gerador de thumbnails, são enviadas as especificações que você escolheu (formato, expressão, elementos visuais etc.), o texto a ser desenhado na imagem e — <strong>opcionalmente</strong> — uma foto que você mesmo carregou;</li>
+        <li>O proxy monta o prompt especializado e usa a chave <strong>exclusivamente para encaminhar sua requisição ao provedor escolhido</strong> — ele não contém nem consulta nenhum banco de dados;</li>
+        <li>A resposta é validada e devolvida ao seu navegador.</li>
+      </ol>
+      <p><strong>Nós não armazenamos, não registramos em logs permanentes e não compartilhamos sua chave.</strong> Ela existe em memória apenas durante os segundos da requisição. Mesmo assim, se preferir, você pode revogar a chave no painel do provedor a qualquer momento e gerar outra — sem custo.</p>
+
+      <h2>4. Serviços de terceiros</h2>
+      <h3>a) Provedores de IA</h3>
+      <p>Quando você gera um roteiro, o provedor escolhido — <strong>Google Gemini</strong>, <strong>Groq</strong>, <strong>Cerebras</strong> ou <strong>Mistral</strong> — recebe a requisição e trata os dados conforme <strong>sua própria política de privacidade</strong>. No modo Minha Ideia, o material que você escreveu ou colou (histórias, dados, links) integra essa requisição — vai ao provedor escolhido <strong>exclusivamente para gerar o seu roteiro</strong> e não é armazenado por nós. O mesmo vale para o nicho informado no recurso "Sugerir temas".</p>
+      <p>No gerador de thumbnails, a geração de imagens acontece <strong>exclusivamente via Google Gemini</strong> — o único provedor do serviço com saída visual. Se você enviar uma foto (recurso opcional para aparecer na thumbnail), ela vai ao Gemini <strong>exclusivamente para compor a sua imagem</strong>: trafega em memória apenas durante os segundos da requisição, <strong>nunca é armazenada por nós, nunca registrada em logs e nunca compartilhada com terceiros além do próprio Gemini</strong>. Em resumo: o ViralScript AI gera <strong>TEXTO</strong> (roteiros e sugestões de conteúdo) em qualquer um dos quatro provedores e <strong>IMAGENS DE THUMBNAIL</strong> exclusivamente via Google Gemini. Recomendamos a leitura: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google</a>, <a href="https://groq.com/privacy-policy/" target="_blank" rel="noopener noreferrer">Groq</a>, <a href="https://www.cerebras.ai/privacy-policy" target="_blank" rel="noopener noreferrer">Cerebras</a>, <a href="https://legal.mistral.ai/terms/privacy-policy" target="_blank" rel="noopener noreferrer">Mistral</a>.</p>
+
+      <h3>b) Google AdSense (anúncios)</h3>
+      <p>Utilizamos o Google AdSense para exibir anúncios. O Google, como fornecedor terceirizado, usa cookies para exibir anúncios com base em visitas anteriores a este e a outros sites. Você pode desativar anúncios personalizados acessando as <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer">Configurações de Anúncios do Google</a>. Mais informações: <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">Como o Google usa dados de sites parceiros</a>.</p>
+
+      <h3>c) Hospedagem e infraestrutura</h3>
+      <p>O site é servido pelo GitHub Pages, que pode registrar dados técnicos padrão de acesso em logs operacionais. As requisições de geração passam por um intermediário (Cloudflare Workers), que pode registrar dados técnicos mínimos de execução conforme sua política própria. <strong>Para proteger o serviço contra abuso</strong> (bots e requisições automatizadas em massa), o intermediário mantém temporariamente <strong>em memória um contador de requisições por endereço IP</strong>: dado técnico aproximado, <strong>descartado em até 1 hora</strong>, sem associação a qualquer outra informação e sem histórico permanente — serve exclusivamente para aplicar o limite de uso do serviço (detalhado nas <a href="/faq.html">Perguntas Frequentes</a>).</p>
+
+      <h3>d) Canal de contato (X / Twitter)</h3>
+      <p>Nosso canal de contato é a rede social <strong>X (Twitter)</strong>, perfil <a href="https://x.com/TIODAWEB03" target="_blank" rel="noopener noreferrer">@TIODAWEB03</a>. A página de Contato do site <strong>não coleta dado algum</strong>: ela apenas direciona você ao nosso perfil no X. Ao seguir o perfil ou nos enviar uma mensagem direta, a interação acontece inteiramente dentro da plataforma do X, na sua própria conta — o nome de perfil, o @ e o texto da sua mensagem são tratados pelo X e regidos pela <a href="https://x.com/privacy" target="_blank" rel="noopener noreferrer">Política de Privacidade do X</a>. Usamos essas mensagens <strong>exclusivamente para responder</strong> e recomendamos não incluir dados sensíveis no texto.</p>
+
+      <h3>e) Google Analytics 4 (medição anônima)</h3>
+      <p>Utilizamos o Google Analytics 4 para medir, de forma <strong>anônima e agregada</strong>, o uso geral do serviço: quantas pessoas visitam, quantas configuram uma chave, quantas geram roteiros, em quais plataformas, provedores e modos de criação, quantas usam a sugestão de temas e — no gerador de thumbnails — se uma imagem foi gerada ou baixada, com características estritamente técnicas (proporção do formato, se a geração incluiu foto, se incluiu texto). São enviados <strong>apenas eventos técnicos e contagens</strong> (ex.: "uma thumbnail foi gerada no formato 16:9 com foto"). <strong>NÃO enviamos</strong> o texto dos seus temas, nichos, ideias, roteiros, o texto que você pede para desenhar na thumbnail, sua foto, sua chave de API ou qualquer conteúdo que você digite ou envie. Você pode bloquear o Google Analytics nas configurações do seu navegador ou com extensões de bloqueio, sem afetar o funcionamento do app. Mais informações: <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">Como o Google usa dados de sites parceiros</a>.</p>
+
+      <h2>5. Cookies</h2>
+      <p>O aplicativo em si <strong>não utiliza cookies próprios</strong>. Cookies de terceiros podem ser definidos pelo Google AdSense (ver seção 4b) e pelo Google Analytics (ver seção 4e). Você pode gerenciar ou bloquear cookies nas configurações do seu navegador.</p>
+
+      <h2>6. Seus direitos (LGPD)</h2>
+      <p>Nos termos da Lei Geral de Proteção de Dados, você pode solicitar a qualquer momento: confirmação de tratamento, acesso, correção, anonimização, bloqueio ou eliminação de dados pessoais. Como <strong>quase nenhum dado pessoal chega a nós</strong>, a maioria dos direitos se realiza automaticamente: basta limpar os dados do seu navegador para eliminar as chaves e o histórico. Para tudo o mais, entre em contato pelo canal na página de <a href="/contato.html">Contato</a>.</p>
+
+      <h2>7. Segurança</h2>
+      <p>Todo o tráfego do site ocorre via HTTPS. Como não mantemos base de dados de usuários, o risco associado a vazamentos é estruturalmente mínimo.</p>
+
+      <h2>8. Menores de idade</h2>
+      <p>O serviço não é direcionado a menores de 16 anos (ou idade mínima aplicável). Não coletamos intencionalmente dados de menores.</p>
+
+      <h2>9. Alterações nesta política</h2>
+      <p>Esta política pode ser atualizada para refletir mudanças no serviço. A data de "última atualização" no topo indica a versão vigente. Alterações relevantes serão destacadas na página inicial por tempo razoável.</p>
+
+      <h2>10. Contato do controlador</h2>
+      <p>Dúvidas sobre privacidade? Utilize o canal de contato na página de <a href="/contato.html">Contato</a>.</p>
+    </article>
+
+    <footer>
+      <p>ViralScript AI — roteiros virais com a sua chave de IA. Grátis, privado e sem cadastro.</p>
+      <nav class="nav-rodape">
+        <a href="/guia-roteiros-virais.html">Guias</a> ·
+        <a href="/faq.html">FAQ</a> ·
+        <a href="/politica-privacidade.html">Privacidade</a> ·
+        <a href="/termos-uso.html">Termos</a> ·
+        <a href="/contato.html">Contato</a>
+      </nav>
+    </footer>
+  </div>
+</body>
+</html>
