@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- ViralScript AI — icon-maskable.svg (V2): variante MASKABLE do ícone
+       PWA — ROBÔ mascote. Fundo FULL-BLEED (sem rx): o launcher Android
+       recorta qualquer formato sem vazar transparência nos cantos.
+       Robô escalado a 0.85 e recentrado: todos os pontos dentro da zona
+       segura maskable (raio 204.8 do centro). -->
+  <defs>
+    <linearGradient id="fundoIconeMaskable" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0" stop-color="#E8EDF5" />
+      <stop offset="1" stop-color="#D9DFE7" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#fundoIconeMaskable)" />
+  <g transform="translate(38.4 45.6) scale(0.85)">
+    <g stroke="#29A8E0" stroke-width="10" fill="none" opacity="0.55" stroke-linecap="round">
+      <path d="M256 60 L140 130" />
+      <path d="M256 60 L372 130" />
+      <path d="M140 130 L80 250" />
+      <path d="M372 130 L432 250" />
+      <path d="M80 250 L256 200" />
+      <path d="M432 250 L256 200" />
+    </g>
+    <g fill="#29A8E0">
+      <circle cx="256" cy="55" r="34" />
+      <circle cx="140" cy="130" r="30" />
+      <circle cx="372" cy="130" r="30" />
+      <circle cx="80" cy="250" r="26" />
+      <circle cx="432" cy="250" r="26" />
+      <circle cx="256" cy="200" r="18" />
+    </g>
+    <g stroke="#2B4A70" stroke-width="10">
+      <ellipse cx="135" cy="330" rx="48" ry="72" fill="#F2C470" />
+      <ellipse cx="377" cy="330" rx="48" ry="72" fill="#F2C470" />
+    </g>
+    <path d="M256 158 C 185 158 140 205 138 290 C 136 355 160 425 218 458 C 242 470 270 470 294 458 C 352 425 376 355 374 290 C 372 205 327 158 256 158 Z" fill="#D9DFE7" stroke="#2B4A70" stroke-width="8" />
+    <g stroke="#2B4A70" stroke-width="6">
+      <circle cx="214" cy="252" r="17" fill="#45D4F5" />
+      <circle cx="298" cy="252" r="17" fill="#45D4F5" />
+    </g>
+    <circle cx="214" cy="252" r="8" fill="#A5EBFF" />
+    <circle cx="298" cy="252" r="8" fill="#A5EBFF" />
+    <path d="M178 320 C 176 296 194 284 224 282 L 288 282 C 318 284 336 296 334 320 C 332 342 316 356 292 352 C 276 348 268 344 256 344 C 244 344 236 348 220 352 C 196 356 180 342 178 320 Z" fill="#29ABE2" stroke="#2B4A70" stroke-width="8" />
+    <path d="M210 378 L 302 378 C 318 378 326 394 318 408 L 285 448 C 274 458 238 458 227 448 L 194 408 C 186 394 194 378 210 378 Z" fill="#35B5E5" stroke="#2B4A70" stroke-width="8" />
+    <path d="M238 396 L 284 420 L 238 444 Z" fill="none" stroke="#DFF6FF" stroke-width="9" stroke-linejoin="round" opacity="0.95" />
+  </g>
+</svg>
