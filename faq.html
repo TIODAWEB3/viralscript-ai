@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <!-- viewport-fit=cover: necessário para o env(safe-area-inset) do rodapé -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Perguntas Frequentes (FAQ) | ViralScript AI</title>
+  <meta name="description" content="Dúvidas sobre o ViralScript AI: é grátis mesmo? Onde fica salva minha chave de API? Como usar a MINHA ideia no roteiro? Todas as respostas aqui.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- JetBrains Mono: carregada aqui porque os <code> de prefixos de chave
+       (AIza / AQ. / gsk_ / csk-) são estilizados com ela no estilo.css -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/estilo.css">
+
+  <!-- v8.7 — Google AdSense: script oficial no <head> de TODAS as páginas
+       (exigência do Google para verificação de propriedade do site). -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2359494647300339"
+       crossorigin="anonymous"></script>
+
+  <!-- Dados estruturados FAQPage (schema.org): habilita rich results no Google.
+       As respostas abaixo são versões enxutas do texto visível da página.
+       v8.6.3 — sincronizado com o produto: limite de proteção (30/hora),
+       Modo Minha Ideia e Sugerir Temas (13 perguntas). -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "O app é realmente 100% gratuito?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Sim. Você usa a sua própria chave de API de IA — Google Gemini, Groq, Cerebras ou Mistral — e todos oferecem níveis gratuitos generosos. O projeto se sustenta com doações voluntárias via Pix e anúncios discretos, nunca cobrando nada de você." }
+      },
+      {
+        "@type": "Question",
+        "name": "Onde minha chave de API fica salva? Vocês a veem?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Suas chaves ficam salvas apenas no seu navegador (localStorage), em um cofre próprio para cada provedor — você pode manter todas configuradas ao mesmo tempo e alternar com um toque. Para gerar o conteúdo, a chave do provedor ativo transita pelo nosso servidor intermediário apenas para encaminhar sua solicitação ao provedor de IA; não a armazenamos, não registramos em logs e não compartilhamos. Não existe cadastro ou conta." }
+      },
+      {
+        "@type": "Question",
+        "name": "Vocês veem ou guardam meus roteiros?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Não. Os roteiros gerados aparecem para você e são salvos somente no seu navegador (histórico local). Você pode excluí-los a qualquer momento pelo botão Excluir no histórico, ou limpando os dados do navegador." }
+      },
+      {
+        "@type": "Question",
+        "name": "Qual provedor de IA devo escolher?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Recomendamos começar pelo Gemini (Google) — fácil de criar a chave e com bom limite gratuito. A Groq e a Cerebras são extremamente rápidas e generosas no plano gratuito. A Mistral é ótima para quem quer variar. Você pode configurar todas ao mesmo tempo (cada uma com seu cofre de chave) e trocar quando quiser." }
+      },
+      {
+        "@type": "Question",
+        "name": "Minha chave foi recusada. O que fazer?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Verifique: (1) a chave corresponde ao provedor selecionado — chaves do Gemini podem começar com AIza ou AQ., as da Groq com gsk_, as da Cerebras com csk-, e as da Mistral são alfanuméricas sem prefixo; (2) a chave foi copiada completa, sem espaços; (3) no caso do Gemini, os termos de uso foram aceitos no AI Studio. Se o erro for de limite, aguarde alguns minutos ou troque de IA no botão Configurar Chave." }
+      },
+      {
+        "@type": "Question",
+        "name": "Existe limite de roteiros por dia?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Nós não impomos limite de conteúdo: mantemos apenas uma proteção técnica contra abuso — até 30 gerações por hora por conexão (somando roteiros e sugestões de temas), teto muito acima do uso normal de um criador. O limite real é do seu provedor de IA: cada plano gratuito tem cotas definidas pelo provedor (por minuto ou por dia). Se você bater em um dos limites, o app avisa — e você pode trocar de IA em segundos pelo botão Configurar Chave." }
+      },
+      {
+        "@type": "Question",
+        "name": "Posso escolher a duração do roteiro?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Sim. Há um campo opcional 'Duração' no formulário: informe o tempo desejado (ex.: 30 segundos ou 3 minutos) e o roteiro será dividido para somar essa duração. Se deixar vazio, o app usa a duração padrão de cada plataforma (ex.: 30–45 segundos no TikTok, 8–12 minutos no YouTube longo)." }
+      },
+      {
+        "@type": "Question",
+        "name": "Como faço o roteiro usar exatamente as minhas informações?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Ative o modo 'Minha Ideia' no formulário e cole sua história, dados, números e links pesquisados: a IA monta ganchos, roteiro cronometrado, CTA e legenda usando exclusivamente os fatos que você forneceu — nada é inventado ou estimado. Quer um número no vídeo? Cole-o no material." }
+      },
+      {
+        "@type": "Question",
+        "name": "Não sei sobre o que gravar. O app me ajuda?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Sim. Preencha o nicho e toque em 'Sugerir temas virais (IA)': a IA devolve 5 ideias de tema com potencial viral do seu nicho — toque em uma para usar. A sugestão usa a sua própria chave de IA e conta como uma geração normal." }
+      },
+      {
+        "@type": "Question",
+        "name": "Posso usar os roteiros comercialmente?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Sim — os roteiros gerados são seus, para usar como quiser nos seus vídeos, canais e negócios. Lembre-se apenas de respeitar os termos de uso do seu provedor de IA." }
+      },
+      {
+        "@type": "Question",
+        "name": "Troquei de celular/navegador e meu histórico sumiu. Por quê?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Porque, por privacidade, o histórico fica salvo apenas no dispositivo onde você gerou os roteiros — não existe servidor guardando seus dados nem conta para sincronizar. Para levar seu histórico a outro dispositivo, use os botões Exportar e Importar no card do histórico: o primeiro baixa um arquivo .json, que você abre no app do dispositivo novo para importar. Nada é enviado a servidor algum." }
+      },
+      {
+        "@type": "Question",
+        "name": "Preciso criar conta ou informar e-mail?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No app, não — nenhum cadastro é necessário. Mantemos o serviço sem contas justamente para maximizar sua privacidade: não temos como associar roteiros ou chaves a pessoas." }
+      },
+      {
+        "@type": "Question",
+        "name": "Como vocês mantêm o projeto se não cobram nada?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Com doações voluntárias via Pix (qualquer valor, direto pelo botão Apoie o projeto no app) e anúncios discretos. Se o app te ajuda, uma doação de qualquer valor mantém o projeto no ar — e nunca é obrigatória." }
+      }
+    ]
+  }
+  </script>
+
+  <!-- BreadcrumbList: habilita trilha de navegação nos resultados de busca -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://viralscript-ia.com/" },
+      { "@type": "ListItem", "position": 2, "name": "FAQ", "item": "https://viralscript-ia.com/faq.html" }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <a class="brand" href="/">
+        <div class="brand-icon" aria-hidden="true">
+          <img src="/robot.svg" alt="" width="32" height="32">
+        </div>
+        <h1>ViralScript <span>AI</span></h1>
+      </a>
+      <nav class="nav-topo">
+        <a href="/">Início</a>
+        <a href="/guia-roteiros-virais.html">Guia Viral</a>
+        <a href="/guia-chave-api-gratis.html">Chave Grátis</a>
+        <a href="/guia-plataformas.html">Plataformas</a>
+        <a class="ativo" href="/faq.html">FAQ</a>
+        <a href="/sobre.html">Sobre</a>
+        <a href="/contato.html">Contato</a>
+      </nav>
+    </header>
+
+    <main>
+      <article class="artigo">
+        <h1>Perguntas Frequentes</h1>
+        <p class="meta">As dúvidas mais comuns sobre o ViralScript AI</p>
+
+        <details class="faq-item">
+          <summary>O app é realmente 100% gratuito?</summary>
+          <div class="faq-resposta">
+            <p>Sim. Você usa a sua própria chave de API de IA — <strong>Google Gemini</strong>, <strong>Groq</strong>, <strong>Cerebras</strong> ou <strong>Mistral</strong> — e todos oferecem níveis gratuitos generosos — veja <a href="/guia-chave-api-gratis.html">como obter a sua em 2 minutos</a>. O projeto se sustenta com doações voluntárias via Pix e anúncios discretos, nunca cobrando nada de você.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Onde minha chave de API fica salva? Vocês a veem?</summary>
+          <div class="faq-resposta">
+            <p>Suas chaves ficam salvas <strong>apenas no seu navegador</strong> (tecnologia chamada localStorage), em um <strong>cofre próprio para cada provedor</strong> — você pode manter todas configuradas ao mesmo tempo e <strong>alternar entre elas com um toque</strong>, sem precisar recolar a chave. Não existe cadastro ou conta. Para gerar o roteiro, a chave do provedor ativo transita pelo nosso servidor intermediário <strong>apenas para encaminhar sua solicitação ao provedor de IA</strong> que você escolheu; não a armazenamos, não registramos em logs e não compartilhamos. Detalhes na <a href="/politica-privacidade.html">Política de Privacidade</a>.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Vocês veem ou guardam meus roteiros?</summary>
+          <div class="faq-resposta">
+            <p>Não. Os roteiros gerados aparecem para você e são salvos <strong>somente no seu navegador</strong> (histórico local). Você pode excluí-los a qualquer momento pelo botão "Excluir" no histórico, ou limpando os dados do navegador.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Qual provedor de IA devo escolher?</summary>
+          <div class="faq-resposta">
+            <p>Recomendamos começar pelo <strong>Gemini</strong> (Google) — fácil de criar a chave e com bom limite gratuito. A <strong>Groq</strong> e a <strong>Cerebras</strong> são extremamente rápidas e generosas no plano gratuito. A <strong>Mistral</strong> é ótima para quem quer variar. Você pode configurar <strong>todas ao mesmo tempo</strong> (cada uma com seu cofre de chave própria) e <strong>trocar quando quiser</strong> — um clique no provedor e a IA ativa muda. Compare as opções no <a href="/guia-chave-api-gratis.html">guia de chaves</a>.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Minha chave foi recusada. O que fazer?</summary>
+          <div class="faq-resposta">
+            <p>Verifique: (1) a chave corresponde ao provedor selecionado — chaves do <strong>Gemini</strong> podem começar com <code>AIza</code> (formato clássico) ou <code>AQ.</code> (formato novo); as da <strong>Groq</strong> começam com <code>gsk_</code>; as da <strong>Cerebras</strong> com <code>csk-</code>; e as da <strong>Mistral</strong> são alfanuméricas sem prefixo especial; (2) a chave foi copiada completa, sem espaços; (3) no caso do Gemini, os termos de uso foram aceitos no AI Studio. Se o erro for de limite, aguarde alguns minutos ou troque de IA pelo botão "Configurar Chave".</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Existe limite de roteiros por dia?</summary>
+          <div class="faq-resposta">
+            <p>Há <strong>dois limites diferentes</strong> — e nenhum atrapalha o uso real:</p>
+            <p><strong>1. Proteção do serviço (nossa):</strong> até <strong>30 gerações por hora por conexão</strong> (somando roteiros e sugestões de temas). É um teto técnico contra bots e abuso em massa — um criador normal fica <strong>muito abaixo dele</strong>. Se atingir, o app avisa em quanto tempo o limite libera.</p>
+            <p><strong>2. Cota do seu provedor de IA (o limite real):</strong> cada plano gratuito tem cotas definidas pelo provedor (por minuto ou por dia). Se você bater no limite de um, o app avisa — e você pode <strong>trocar de IA em segundos</strong> pelo botão "Configurar Chave", já que cada provedor tem o próprio cofre.</p>
+          </div>
+        </details>
+
+        <!-- v8.7 — Anúncio inline (metade da página). ⚠️ TROCAR "0000000000"
+             pelo ID do bloco criado no painel do AdSense APÓS a aprovação do
+             site. Enquanto o placeholder estiver no lugar, o espaço fica vazio
+             (altura 0, wrapper .ads-slot do estilo.css v4.4) — nada muda no
+             visual da página. -->
+        <div class="ads-slot">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-2359494647300339"
+               data-ad-slot="0000000000"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+
+        <details class="faq-item">
+          <summary>Posso escolher a duração do roteiro?</summary>
+          <div class="faq-resposta">
+            <p>Sim. Há um campo opcional <strong>"Duração"</strong> no formulário: informe o tempo desejado (ex.: "30 segundos" ou "3 minutos") e o roteiro será dividido para somar essa duração. Se deixar vazio, o app usa a duração padrão de cada plataforma (ex.: 30–45 segundos no TikTok, 8–12 minutos no YouTube longo).</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Como faço o roteiro usar exatamente as MINHAS informações?</summary>
+          <div class="faq-resposta">
+            <p>Ative o modo <strong>"Minha Ideia"</strong> no formulário. Em vez de dar só um tema, você cola a sua <strong>história, dados, números e links pesquisados</strong> — e a IA monta a estrutura (3 ganchos, blocos cronometrados, CTA e legenda com hashtags) usando <strong>exclusivamente os fatos que você forneceu</strong>. Nada é inventado: se faltar algum dado, o roteiro fala de forma geral em vez de estimar um valor.</p>
+            <p>Dica prática: quer um número no vídeo? Ele precisa estar no seu material — <strong>cole-o junto</strong>.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Não sei sobre o que gravar. O app me ajuda?</summary>
+          <div class="faq-resposta">
+            <p>Sim. Preencha o nicho e toque no botão <strong>"Sugerir temas virais (IA)"</strong>: a IA devolve <strong>5 ideias de tema</strong> com potencial viral do seu nicho — toque em uma para usar (no modo Minha Ideia, ela entra no topo do seu material para você complementar com a sua história). A sugestão usa a sua própria chave de IA e conta como uma geração normal.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Posso usar os roteiros comercialmente?</summary>
+          <div class="faq-resposta">
+            <p>Sim — os roteiros gerados são seus, para usar como quiser nos seus vídeos, canais e negócios. Lembre-se apenas de respeitar os termos de uso do seu provedor de IA. Consulte os <a href="/termos-uso.html">Termos de Uso</a> completos.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Troquei de celular/navegador e meu histórico sumiu. Por quê?</summary>
+          <div class="faq-resposta">
+            <p>Porque, por privacidade, o histórico fica salvo apenas no dispositivo onde você gerou os roteiros — não existe servidor guardando seus dados nem conta para sincronizar.</p>
+            <p>Para levar seu histórico a outro dispositivo, use os botões <strong>"Exportar"</strong> e <strong>"Importar"</strong> no card do histórico: o primeiro baixa um arquivo <code>.json</code> com todos os seus roteiros; transfira-o ao dispositivo novo (WhatsApp, e-mail, cabo ou nuvem) e toque em "Importar" lá. A importação <strong>mescla</strong> com o que já existir no dispositivo novo (nada é apagado) e nada é enviado a servidor algum — a transferência é feita por você.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Preciso criar conta ou informar e-mail?</summary>
+          <div class="faq-resposta">
+            <p>No app, não — nenhum cadastro é necessário. Mantemos o serviço sem contas justamente para maximizar sua privacidade: não temos como associar roteiros ou chaves a pessoas.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Como vocês mantêm o projeto se não cobram nada?</summary>
+          <div class="faq-resposta">
+            <p>Com doações voluntárias <strong>via Pix</strong> <svg class="ico-texto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg> — qualquer valor, direto pelo botão <strong>"Apoie o projeto"</strong> no app — e anúncios discretos. Se o app te ajuda, uma doação de qualquer valor mantém o projeto no ar — e nunca é obrigatória.</p>
+          </div>
+        </details>
+
+        <div class="cta-caixa">
+          <h3>Ficou com outra dúvida?</h3>
+          <p>Fale com a gente — respondemos rapidamente.</p>
+          <a class="btn-cta" href="/contato.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            Entrar em Contato
+          </a>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      <p>ViralScript AI — roteiros virais com a sua chave de IA. Grátis, privado e sem cadastro.</p>
+      <nav class="nav-rodape">
+        <a href="/guia-roteiros-virais.html">Guias</a> ·
+        <a href="/faq.html">FAQ</a> ·
+        <a href="/politica-privacidade.html">Privacidade</a> ·
+        <a href="/termos-uso.html">Termos</a> ·
+        <a href="/contato.html">Contato</a>
+      </nav>
+    </footer>
+  </div>
+</body>
+</html>
